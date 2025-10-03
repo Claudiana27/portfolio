@@ -1,8 +1,8 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame, Canvas } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
-import { Container, Typography, Box, TextField, Button, Paper } from "@mui/material";
+import { Container, Typography, Box, TextField, Button, useMediaQuery } from "@mui/material";
 
 function FloatingParticles({ count = 1500, darkMode }) {
   const pointsRef = useRef();
@@ -47,6 +47,16 @@ function FloatingParticles({ count = 1500, darkMode }) {
 }
 
 function Contact({ darkMode }) {
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Mise à jour de la taille de l'écran
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <Container
       id="contact"
@@ -76,16 +86,21 @@ function Contact({ darkMode }) {
           zIndex: 0,
         }}
       >
-        <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
+        <Canvas
+          camera={{
+            position: [0, 0, isMobile ? 25 : 15], // zoom adapté au mobile
+            fov: isMobile ? 75 : 50,
+          }}
+        >
           <ambientLight intensity={0.3} />
-          <FloatingParticles darkMode={darkMode} />
+          <FloatingParticles darkMode={darkMode} count={isMobile ? 800 : 1500} />
         </Canvas>
       </Box>
 
       {/* Contenu principal */}
       <Box sx={{ position: "relative", zIndex: 1, textAlign: "center" }}>
         <Typography
-          variant="h3"
+          variant={isMobile ? "h4" : "h3"}
           fontWeight="bold"
           gutterBottom
           color={darkMode ? "#fff" : "text.primary"}
@@ -98,23 +113,15 @@ function Contact({ darkMode }) {
             label="Nom"
             fullWidth
             sx={{ mb: 2 }}
-            InputLabelProps={{
-              style: { color: darkMode ? "#fff" : "inherit" },
-            }}
-            InputProps={{
-              style: { color: darkMode ? "#fff" : "inherit" },
-            }}
+            InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
+            InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
           />
           <TextField
             label="Email"
             fullWidth
             sx={{ mb: 2 }}
-            InputLabelProps={{
-              style: { color: darkMode ? "#fff" : "inherit" },
-            }}
-            InputProps={{
-              style: { color: darkMode ? "#fff" : "inherit" },
-            }}
+            InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
+            InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
           />
           <TextField
             label="Message"
@@ -122,12 +129,8 @@ function Contact({ darkMode }) {
             rows={4}
             fullWidth
             sx={{ mb: 2 }}
-            InputLabelProps={{
-              style: { color: darkMode ? "#fff" : "inherit" },
-            }}
-            InputProps={{
-              style: { color: darkMode ? "#fff" : "inherit" },
-            }}
+            InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
+            InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
           />
           <Button variant="contained" color="primary">
             Envoyer
@@ -152,6 +155,5 @@ function Contact({ darkMode }) {
     </Container>
   );
 }
-
 
 export default Contact;

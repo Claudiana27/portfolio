@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Container, Box, Typography, Button, Avatar, useMediaQuery } from "@mui/material";
 import { Canvas } from "@react-three/fiber";
 import { Text3D, OrbitControls } from "@react-three/drei";
@@ -7,7 +7,17 @@ import "../App.css";
 
 function Portfolio({ darkMode }) {
   const textRef = useRef();
-  const isMobile = useMediaQuery("(max-width:600px)"); // détecter si mobile
+  const isMobile = useMediaQuery("(max-width:600px)");
+
+  // State pour gérer la largeur de l'écran
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (textRef.current && textRef.current.material) {
@@ -19,12 +29,25 @@ function Portfolio({ darkMode }) {
     }
   }, [darkMode]);
 
+  // Fonction pour calculer la taille du texte 3D en fonction de l'écran
+  const getTextSize = () => {
+    if (isMobile) return windowWidth / 100; // ajuste selon la largeur
+    return 5; // desktop
+  };
+
+  const getTextHeight = () => {
+    if (isMobile) return windowWidth / 250;
+    return 3;
+  };
+
   return (
     <Container
       id="home"
       maxWidth={false}
       sx={{
         height: "100vh",
+        minHeight: "100vh",
+        overflow:"hidden
         display: "flex",
         textAlign: "center",
         alignItems: "center",
@@ -56,18 +79,22 @@ function Portfolio({ darkMode }) {
           Salut, je suis
         </Typography>
 
+        {/* Canvas 3D responsive */}
         <Box
           sx={{
-            width: isMobile ? 220 : 300,
-            height: isMobile ? 120 : 100,
+            width: "100%",
+            height: isMobile ? 180 : 250,
             mx: "auto",
             mb: 2,
           }}
         >
           <Canvas
-            camera={{ position: [0, 0, isMobile ? 30 : 20], fov: isMobile ? 70 : 50 }}
+            camera={{
+              position: [0, 0, isMobile ? 25 : 20],
+              fov: isMobile ? 75 : 50,
+            }}
             gl={{ alpha: true }}
-            style={{ background: "transparent" }}
+            style={{ width: "100%", height: "100%", background: "transparent" }}
           >
             <ambientLight intensity={darkMode ? 0.5 : 0.3} />
             <directionalLight position={[5, 5, 5]} intensity={1.2} />
@@ -78,18 +105,18 @@ function Portfolio({ darkMode }) {
               <meshStandardMaterial color="white" opacity={0.1} transparent />
             </mesh>
 
-            {/* Texte 3D responsive */}
+            {/* Texte 3D */}
             <Text3D
               ref={textRef}
               key={darkMode ? "dark" : "light"}
               font="/fonts/helvetiker_regular.typeface.json"
-              size={isMobile ? 2 : 5}
-              height={isMobile ? 1 : 3}
+              size={getTextSize()}
+              height={getTextHeight()}
               curveSegments={12}
             >
               Diana
               <meshPhysicalMaterial
-                transparent={true}
+                transparent
                 opacity={0.9}
                 metalness={0.5}
                 roughness={0.3}
@@ -143,8 +170,8 @@ function Portfolio({ darkMode }) {
           alt="portrait"
           src={pdp}
           sx={{
-            width: 450,
-            height: 450,
+            width: isMobile ? 200 : 450,
+            height: isMobile ? 200 : 450,
             mb: 6,
             border: "3px solid",
             borderColor: "primary.main",
