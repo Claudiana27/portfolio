@@ -8,6 +8,7 @@ import {
   CardMedia,
   CardContent,
   Grid,
+  useMediaQuery,
 } from "@mui/material";
 
 const projects = [
@@ -57,6 +58,8 @@ const projects = [
 
 function Projects({ darkMode }) {
   const [currentImageIndex, setCurrentImageIndex] = useState({});
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const isTablet = useMediaQuery("(max-width:900px)");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -76,43 +79,50 @@ function Projects({ darkMode }) {
       id="projets"
       maxWidth={false}
       sx={{
-        
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        py: 10,
+        py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F, #2D1B69, #0F0F0F)"
           : "#f7f7fb",
         transition: "background-color 0.5s",
+        overflowX: "hidden",
       }}
     >
       {/* Titre */}
       <Typography
-        variant="h3"
+        variant={isMobile ? "h4" : "h3"}
         fontWeight="bold"
-              position="relative"
-              top="-20px"
         gutterBottom
         color={darkMode ? "#fff" : "text.primary"}
+        sx={{ mb: 6, textAlign: "center" }}
       >
         MES PROJETS
       </Typography>
 
-      {/* Grille des projets (carrés égaux) */}
+      {/* Grille des projets */}
       <Grid container spacing={4} justifyContent="center">
         {projects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            key={index}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
             <Card
               sx={{
-                width: "300px",
-                height: "300px", // <-- carré parfait
+                width: isMobile ? "90%" : 300,
+                height: 300,
                 display: "flex",
                 flexDirection: "column",
-                position: "relative",
-                top: "70px",
                 justifyContent: "space-between",
-                background: darkMode ? "linear-gradient(180deg, #0F0F0F 0%, #1A0938 50%,#0F0F0F 100%)" : "#fff",
+                background: darkMode
+                  ? "linear-gradient(180deg, #0F0F0F 0%, #1A0938 50%,#0F0F0F 100%)"
+                  : "#fff",
                 color: darkMode ? "#fff" : "#000",
                 borderRadius: 3,
                 boxShadow: "0px 6px 15px rgba(0,0,0,0.2)",
@@ -123,13 +133,13 @@ function Projects({ darkMode }) {
                 },
               }}
             >
-              {/* Image (hauteur fixe) */}
+              {/* Image */}
               <CardMedia
                 component="img"
                 image={project.images[currentImageIndex[index] || 0]}
                 alt={project.title}
                 sx={{
-                  height: "50%", // moitié de la carte
+                  height: "50%",
                   objectFit: "cover",
                   borderTopLeftRadius: 12,
                   borderTopRightRadius: 12,
@@ -151,7 +161,7 @@ function Projects({ darkMode }) {
                   variant="subtitle1"
                   fontWeight="bold"
                   gutterBottom
-                  noWrap
+                  sx={{ fontSize: isMobile ? "0.9rem" : "1rem" }}
                 >
                   {project.title}
                 </Typography>
@@ -160,22 +170,29 @@ function Projects({ darkMode }) {
                   sx={{
                     mb: 2,
                     color: darkMode ? "#ccc" : "#555",
-                    fontSize: "0.8rem",
+                    fontSize: isMobile ? "0.7rem" : "0.8rem",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
-                    WebkitLineClamp: 2, // max 2 lignes
+                    WebkitLineClamp: 2,
                     WebkitBoxOrient: "vertical",
                   }}
                 >
                   {project.description}
                 </Typography>
-                <Box sx={{ display: "flex", gap: 1, justifyContent: "center" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 1,
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
                   <Button
                     variant="outlined"
                     href={project.github}
                     target="_blank"
-                    size="small"
+                    size={isMobile ? "small" : "medium"}
                   >
                     GitHub
                   </Button>
@@ -183,7 +200,7 @@ function Projects({ darkMode }) {
                     variant="contained"
                     href={project.demo}
                     target="_blank"
-                    size="small"
+                    size={isMobile ? "small" : "medium"}
                   >
                     Demo
                   </Button>

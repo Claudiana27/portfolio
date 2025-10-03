@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
 import SkillCircle from "../components/SkillCircle";
 
@@ -19,21 +19,24 @@ const items = [
 ];
 
 function About({ darkMode }) {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <Container
       id="about"
       maxWidth={false}
       sx={{
-        py: 10,
+        py: { xs: 6, md: 10 },
         background: darkMode
-          ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%,#0F0F0F 100%)"
+          ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
           : "#ffffff",
         transition: "background-color 0.5s",
+        overflowX: "hidden",
       }}
     >
       {/* Titre */}
       <Typography
-        variant="h3"
+        variant={isMobile ? "h4" : "h3"}
         textAlign="center"
         gutterBottom
         sx={{ fontWeight: "bold", color: darkMode ? "#cccccc" : "text.primary" }}
@@ -41,13 +44,14 @@ function About({ darkMode }) {
         A PROPOS DE MOI
       </Typography>
 
-      <Box sx={{ maxWidth: 1200, mx: "auto", mt: 4 }}>
+      <Box sx={{ maxWidth: 1200, mx: "auto", mt: { xs: 4, md: 6 } }}>
         {/* Sous-titre */}
         <Typography
-          variant="h4"
+          variant={isMobile ? "h5" : "h4"}
           fontWeight="bold"
           color={darkMode ? "#cccccc" : "text.secondary"}
           gutterBottom
+          textAlign={isMobile ? "center" : "left"}
         >
           Formations & Diplômes
         </Typography>
@@ -56,10 +60,10 @@ function About({ darkMode }) {
         <Box
           sx={{
             position: "relative",
-            px: 2,
-            maxWidth: 800,
+            px: { xs: 2, md: 0 },
+            maxWidth: { xs: "100%", md: 800 },
             mx: "auto",
-            mt: 6,
+            mt: 4,
           }}
         >
           {/* Ligne verticale */}
@@ -89,25 +93,25 @@ function About({ darkMode }) {
                 <Box
                   sx={{
                     mb: 6,
-                    width: { xs: "100%", sm: "50%" }, // responsive
+                    width: { xs: "100%", sm: "50%" },
                     textAlign: { xs: "center", sm: isLeft ? "right" : "left" },
                     position: "relative",
                     left: {
-                      xs: 0, // pas de décalage en mobile
-                      sm: isLeft ? "-4%" : "50%", // alternance en desktop
+                      xs: 0,
+                      sm: isLeft ? "-4%" : "50%",
                     },
-                    px: 2,
+                    px: { xs: 1, md: 2 },
                   }}
                 >
                   <Typography
-                    variant="h6"
+                    variant={isMobile ? "subtitle1" : "h6"}
                     fontWeight="bold"
                     color={darkMode ? "#cccccc" : "text.primary"}
                   >
                     {item.title}
                   </Typography>
                   <Typography
-                    variant="body2"
+                    variant={isMobile ? "body2" : "body2"}
                     color={darkMode ? "#cccccc" : "text.secondary"}
                   >
                     {item.subtitle}
@@ -120,10 +124,10 @@ function About({ darkMode }) {
 
         {/* Compétences techniques */}
         <Typography
-          variant="h4"
+          variant={isMobile ? "h5" : "h4"}
           fontWeight="bold"
           sx={{
-            mt: 25,
+            mt: { xs: 12, md: 25 },
             mb: 6,
             color: darkMode ? "#cccccc" : "text.secondary",
             textAlign: "center",
@@ -155,9 +159,9 @@ function About({ darkMode }) {
               key={index}
               sx={{
                 flex: {
-                  xs: "0 0 100%", // mobile : 1 par ligne
-                  sm: "0 0 50%", // tablette : 2 par ligne
-                  md: "0 0 33.33%", // desktop : 3 par ligne
+                  xs: "0 0 100%",
+                  sm: "0 0 50%",
+                  md: "0 0 33.33%",
                 },
                 maxWidth: {
                   xs: "100%",
@@ -173,7 +177,7 @@ function About({ darkMode }) {
                 value={skill.value}
                 label={skill.label}
                 color="linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)"
-                size={100}
+                size={isMobile ? 80 : 100} // taille réduite sur mobile
               />
             </Box>
           ))}

@@ -62,7 +62,7 @@ function Contact({ darkMode }) {
       id="contact"
       maxWidth={false}
       sx={{
-        py: 10,
+        py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
           : "#ffffff",
@@ -72,6 +72,7 @@ function Contact({ darkMode }) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        overflowX: "hidden",
       }}
     >
       {/* Particules en fond */}
@@ -88,7 +89,7 @@ function Contact({ darkMode }) {
       >
         <Canvas
           camera={{
-            position: [0, 0, isMobile ? 25 : 15], // zoom adapté au mobile
+            position: [0, 0, isMobile ? 25 : 15],
             fov: isMobile ? 75 : 50,
           }}
         >
@@ -98,7 +99,7 @@ function Contact({ darkMode }) {
       </Box>
 
       {/* Contenu principal */}
-      <Box sx={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+      <Box sx={{ position: "relative", zIndex: 1, textAlign: "center", px: { xs: 2, sm: 4, md: 0 } }}>
         <Typography
           variant={isMobile ? "h4" : "h3"}
           fontWeight="bold"
@@ -108,7 +109,7 @@ function Contact({ darkMode }) {
           Contact
         </Typography>
 
-        <Box sx={{ maxWidth: 600, mx: "auto", mt: 4 }}>
+        <Box sx={{ maxWidth: isMobile ? "100%" : 600, mx: "auto", mt: 4 }}>
           <TextField
             label="Nom"
             fullWidth
@@ -126,13 +127,17 @@ function Contact({ darkMode }) {
           <TextField
             label="Message"
             multiline
-            rows={4}
+            rows={isMobile ? 3 : 4}
             fullWidth
             sx={{ mb: 2 }}
             InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
             InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
           />
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ width: isMobile ? "100%" : "auto" }}
+          >
             Envoyer
           </Button>
         </Box>
