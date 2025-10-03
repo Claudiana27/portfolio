@@ -1,0 +1,157 @@
+import React, { useRef, useMemo } from "react";
+import { useFrame, Canvas } from "@react-three/fiber";
+import { Points, PointMaterial } from "@react-three/drei";
+import * as THREE from "three";
+import { Container, Typography, Box, TextField, Button, Paper } from "@mui/material";
+
+function FloatingParticles({ count = 1500, darkMode }) {
+  const pointsRef = useRef();
+
+  const particlesPosition = useMemo(() => {
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i += 3) {
+      const radius = 10 + Math.random() * 10;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+
+      positions[i] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i + 2] = radius * Math.cos(phi);
+    }
+    return positions;
+  }, [count]);
+
+  useFrame((state, delta) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y += delta * 0.05;
+      pointsRef.current.rotation.x += delta * 0.02;
+
+      const time = state.clock.getElapsedTime();
+      pointsRef.current.position.y = Math.sin(time * 0.5) * 0.2;
+    }
+  });
+
+  return (
+    <Points ref={pointsRef} positions={particlesPosition}>
+      <PointMaterial
+        transparent
+        color={darkMode ? "#6a0dad" : "#2D1B69"}
+        size={0.05}
+        sizeAttenuation
+        depthWrite={false}
+        opacity={0.9}
+        blending={THREE.AdditiveBlending}
+      />
+    </Points>
+  );
+}
+
+function Contact({ darkMode }) {
+  return (
+    <Container
+      id="contact"
+      maxWidth={false}
+      sx={{
+        py: 10,
+        background: darkMode
+          ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
+          : "#ffffff",
+        transition: "background-color 0.5s",
+        position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      {/* Particules en fond */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          zIndex: 0,
+        }}
+      >
+        <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
+          <ambientLight intensity={0.3} />
+          <FloatingParticles darkMode={darkMode} />
+        </Canvas>
+      </Box>
+
+      {/* Contenu principal */}
+      <Box sx={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+        <Typography
+          variant="h3"
+          fontWeight="bold"
+          gutterBottom
+          color={darkMode ? "#fff" : "text.primary"}
+        >
+          Contact
+        </Typography>
+
+        <Box sx={{ maxWidth: 600, mx: "auto", mt: 4 }}>
+          <TextField
+            label="Nom"
+            fullWidth
+            sx={{ mb: 2 }}
+            InputLabelProps={{
+              style: { color: darkMode ? "#fff" : "inherit" },
+            }}
+            InputProps={{
+              style: { color: darkMode ? "#fff" : "inherit" },
+            }}
+          />
+          <TextField
+            label="Email"
+            fullWidth
+            sx={{ mb: 2 }}
+            InputLabelProps={{
+              style: { color: darkMode ? "#fff" : "inherit" },
+            }}
+            InputProps={{
+              style: { color: darkMode ? "#fff" : "inherit" },
+            }}
+          />
+          <TextField
+            label="Message"
+            multiline
+            rows={4}
+            fullWidth
+            sx={{ mb: 2 }}
+            InputLabelProps={{
+              style: { color: darkMode ? "#fff" : "inherit" },
+            }}
+            InputProps={{
+              style: { color: darkMode ? "#fff" : "inherit" },
+            }}
+          />
+          <Button variant="contained" color="primary">
+            Envoyer
+          </Button>
+        </Box>
+      </Box>
+
+      {/* Texte copyright */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 16,
+          width: "100%",
+          textAlign: "center",
+          zIndex: 1,
+        }}
+      >
+        <Typography variant="body2" color={darkMode ? "#ccc" : "text.secondary"}>
+          © {new Date().getFullYear()} Diana. Tous droits réservés.
+        </Typography>
+      </Box>
+    </Container>
+  );
+}
+
+
+export default Contact;
