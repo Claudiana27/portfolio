@@ -87,7 +87,7 @@ function Portfolio({ darkMode }) {
               ref={textRef}
               key={darkMode ? "dark" : "light"}
               font="/fonts/helvetiker_regular.typeface.json"
-              size={isMobile ? 3.5 : 4} // texte plus petit sur mobile
+              size={isMobile ? 4 : 4} // texte plus petit sur mobile
               height={isMobile ? 1.5 : 3}
               curveSegments={12}
             >
