@@ -26,6 +26,7 @@ function About({ darkMode }) {
       id="about"
       maxWidth={false}
       sx={{
+        width: {xs: "100%", md: "90%"},
         py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
@@ -36,10 +37,10 @@ function About({ darkMode }) {
     >
       {/* Titre */}
       <Typography
-        variant={isMobile ? "h4" : "h3"}
+        variant={isMobile ? "h5" : "h3"}
         textAlign="center"
         gutterBottom
-        sx={{ fontWeight: "bold", color: darkMode ? "#cccccc" : "text.primary" }}
+        sx={{ fontWeight: "bold",mt: {xs: 3},fontSize: {md: 37}, color: darkMode ? "#cccccc" : "text.primary" }}
       >
         A PROPOS DE MOI
       </Typography>
@@ -51,7 +52,10 @@ function About({ darkMode }) {
           fontWeight="bold"
           color={darkMode ? "#cccccc" : "text.secondary"}
           gutterBottom
-          textAlign={isMobile ? "center" : "left"}
+          textAlign={isMobile ? "center" : "center"}
+          sx={{
+            fontSize: {md: 29}
+          }}
         >
           Formations & Diplômes
         </Typography>
@@ -63,7 +67,7 @@ function About({ darkMode }) {
             px: { xs: 2, md: 0 },
             maxWidth: { xs: "100%", md: 800 },
             mx: "auto",
-            mt: 4,
+            mt: {xs: 8, md: 12},
           }}
         >
           {/* Ligne verticale */}
@@ -93,11 +97,11 @@ function About({ darkMode }) {
                 <Box
                   sx={{
                     mb: 6,
-                    width: { xs: "100%", sm: "50%" },
-                    textAlign: { xs: "center", sm: isLeft ? "right" : "left" },
+                    width: { xs: "60%", sm: "50%" },
+                    textAlign:  isLeft ? "right" : "left" ,
                     position: "relative",
                     left: {
-                      xs: 0,
+                      xs: isLeft ? "-16%" : "50%",
                       sm: isLeft ? "-4%" : "50%",
                     },
                     px: { xs: 1, md: 2 },
@@ -107,6 +111,7 @@ function About({ darkMode }) {
                     variant={isMobile ? "subtitle1" : "h6"}
                     fontWeight="bold"
                     color={darkMode ? "#cccccc" : "text.primary"}
+                    fontSize= "15px"
                   >
                     {item.title}
                   </Typography>
@@ -122,7 +127,7 @@ function About({ darkMode }) {
           })}
         </Box>
 
-        {/* Compétences techniques */}
+Comment aligner les cercles en 3 meme dans le mobile:{/* Compétences techniques */}
         <Typography
           variant={isMobile ? "h5" : "h4"}
           fontWeight="bold"
@@ -131,6 +136,7 @@ function About({ darkMode }) {
             mb: 6,
             color: darkMode ? "#cccccc" : "text.secondary",
             textAlign: "center",
+            fontSize: {md: 29}
           }}
         >
           Compétences techniques
@@ -141,6 +147,9 @@ function About({ darkMode }) {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
+            color: darkMode ? "#ffffff" : "#000000",
+            fontSize: "15px",
+            fontWeight: "bold",
             mt: 6,
           }}
         >
@@ -159,7 +168,7 @@ function About({ darkMode }) {
               key={index}
               sx={{
                 flex: {
-                  xs: "0 0 100%",
+                  xs: "0 0 33.33%",
                   sm: "0 0 50%",
                   md: "0 0 33.33%",
                 },

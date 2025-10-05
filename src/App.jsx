@@ -7,6 +7,7 @@ import Contact from "./containers/Contact";
 import Test from "./tets";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import "./index.css"
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);

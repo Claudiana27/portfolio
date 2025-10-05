@@ -1,14 +1,14 @@
 import React from "react";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
-function SkillCircle({ value, label, color, darkMode }) {
+function SkillCircle({ value, label, color }) {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" m={2}>
       <Box position="relative" display="inline-flex">
         <CircularProgress
           variant="determinate"
           value={value}
-          size={100}
+          size={80}
           thickness={5}
           sx={{ color }}
         />
@@ -23,9 +23,9 @@ function SkillCircle({ value, label, color, darkMode }) {
           justifyContent="center"
         >
           <Typography
-                      variant="h6"
+                      variant="h7"
                       component="div"
-                      color={ darkMode ? "#000000" :  "#ffffff"}
+                   
           >
             {`${value}%`}
           </Typography>
@@ -34,7 +34,9 @@ function SkillCircle({ value, label, color, darkMode }) {
 
       <Typography
         variant="subtitle2"
-        sx={{ mt: 1, color: darkMode ? "#000" : "#ffffff"}}
+        fontSize="13px"
+        fontWeight= "bold"
+        sx={{ mt: 1}}
       >
         {label}
       </Typography>

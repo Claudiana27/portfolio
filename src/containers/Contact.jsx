@@ -3,6 +3,7 @@ import { useFrame, Canvas } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { Container, Typography, Box, TextField, Button, useMediaQuery } from "@mui/material";
+import { GitHub, LinkedIn, Facebook } from "@mui/icons-material";
 
 function FloatingParticles({ count = 1500, darkMode }) {
   const pointsRef = useRef();
@@ -62,6 +63,7 @@ function Contact({ darkMode }) {
       id="contact"
       maxWidth={false}
       sx={{
+        width: {xs: "100%", md: "90%"},
         py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
@@ -103,6 +105,7 @@ function Contact({ darkMode }) {
         <Typography
           variant={isMobile ? "h4" : "h3"}
           fontWeight="bold"
+          fontSize="40px"
           gutterBottom
           color={darkMode ? "#fff" : "text.primary"}
         >
@@ -135,11 +138,11 @@ function Contact({ darkMode }) {
           />
           <Button
             variant="contained"
-            color="primary"
-            sx={{ width: isMobile ? "100%" : "auto" }}
+            sx={{ width: isMobile ? "30%" : "auto",fontSize: "0.7rem", background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)" }}
           >
             Envoyer
           </Button>
+          {/*<Typography sx={{ ml: 63, mt: -3}}> <GitHub/> <LinkedIn/> <Facebook/></Typography>*/}
         </Box>
       </Box>
 
@@ -153,7 +156,7 @@ function Contact({ darkMode }) {
           zIndex: 1,
         }}
       >
-        <Typography variant="body2" color={darkMode ? "#ccc" : "text.secondary"}>
+        <Typography variant="body2" color={darkMode ? "#ccc" : "text.secondary"} sx={{fontSize: "12px"}}>
           © {new Date().getFullYear()} Diana. Tous droits réservés.
         </Typography>
       </Box>

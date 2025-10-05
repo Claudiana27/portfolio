@@ -21,7 +21,8 @@ function Portfolio({ darkMode }) {
       id="home"
       maxWidth={false}
       sx={{
-        minHeight: "100vh",
+        width: {xs: "100%", md: "90%"},
+        minHeight: { xs: "75vh" , md: "100vh"},
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
@@ -51,7 +52,7 @@ function Portfolio({ darkMode }) {
           component="h1"
           color={darkMode ? "#cccccc" : "text.primary"}
           gutterBottom
-          sx={{ fontWeight: "bold" }}
+          sx={{ fontWeight: "bold",mt: {xs: 4}, fontSize: { xs: 35, md: 38 } }}
         >
           Salut, je suis
         </Typography>
@@ -61,7 +62,9 @@ function Portfolio({ darkMode }) {
             width: "100%",
             maxWidth: isMobile ? 250 : 300,
             height: isMobile ? 120 : 100,
-            mb: 2,
+            mt: { xs: 0 },
+            ml: {xs: -12, md: -10},
+            mb: { xs: -2,md: 0},
           }}
         >
           <Canvas
@@ -70,7 +73,7 @@ function Portfolio({ darkMode }) {
               fov: 50,
             }}
             gl={{ alpha: true }}
-            style={{ width: "100%", height: "100%", background: "transparent" }}
+            style={{ width: "100%", height: "100%", background: "transparent", align: "center", }}
           >
             <ambientLight intensity={darkMode ? 0.5 : 0.3} />
             <directionalLight position={[5, 5, 5]} intensity={1.2} />
@@ -84,7 +87,7 @@ function Portfolio({ darkMode }) {
               ref={textRef}
               key={darkMode ? "dark" : "light"}
               font="/fonts/helvetiker_regular.typeface.json"
-              size={isMobile ? 3 : 5} // texte plus petit sur mobile
+              size={isMobile ? 3.5 : 4} // texte plus petit sur mobile
               height={isMobile ? 1.5 : 3}
               curveSegments={12}
             >
@@ -92,14 +95,14 @@ function Portfolio({ darkMode }) {
               <meshPhysicalMaterial transparent opacity={0.9} metalness={0.5} roughness={0.3} />
             </Text3D>
 
-            {!isMobile && <OrbitControls enablePan enableZoom enableRotate />}
+             <OrbitControls enablePan enableZoom enableRotate />
           </Canvas>
         </Box>
 
         <Typography
           variant="body1"
           color={darkMode ? "#cccccc" : "text.secondary"}
-          sx={{ mb: 3 }}
+          sx={{ mb: 3, textAlign: "center" }}
         >
           Je suis une développeuse passionnée par le web et la data.
           J&apos;adore créer des interfaces modernes, intuitives et optimisées. 
@@ -115,7 +118,7 @@ function Portfolio({ darkMode }) {
             borderRadius: "50px",
             px: 4,
             py: 1,
-            fontSize: "1rem",
+            fontSize: "0.7rem",
           }}
         >
           Télécharger mon CV ici
@@ -128,15 +131,15 @@ function Portfolio({ darkMode }) {
           flex: { xs: "1 1 100%", md: "0 0 35%" },
           display: "flex",
           justifyContent: "center",
-          mt: { xs: 4, md: 0 },
+          mt: { xs: 0, md: 0 },
         }}
       >
         <Avatar
           alt="portrait"
           src={pdp}
           sx={{
-            width: isMobile ? 180 : 450,
-            height: isMobile ? 180 : 450,
+            width: isMobile ? 300 : 380,
+            height: isMobile ? 300 : 380,
             border: "3px solid",
             borderColor: "primary.main",
             boxShadow: 5,

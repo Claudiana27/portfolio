@@ -10,6 +10,7 @@ import {
   Grid,
   useMediaQuery,
 } from "@mui/material";
+import { GitHub, PlayCircleOutline } from "@mui/icons-material";
 
 const projects = [
   {
@@ -79,6 +80,7 @@ function Projects({ darkMode }) {
       id="projets"
       maxWidth={false}
       sx={{
+        width: {xs: "100%", md: "90%"},
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -92,36 +94,36 @@ function Projects({ darkMode }) {
     >
       {/* Titre */}
       <Typography
-        variant={isMobile ? "h4" : "h3"}
+        variant={isMobile ? "h5" : "h3"}
         fontWeight="bold"
         gutterBottom
         color={darkMode ? "#fff" : "text.primary"}
-        sx={{ mb: 6, textAlign: "center" }}
+        sx={{ mb: 6, textAlign: "center", fontSize: {md: 37} }}
       >
         MES PROJETS
       </Typography>
 
       {/* Grille des projets */}
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={4} justifyContent="center" sx={{mt: 5}}>
         {projects.map((project, index) => (
           <Grid
             item
-            xs={12}
+            xs={6}
             sm={6}
-            md={4}
+            md={6}
             lg={3}
             key={index}
             sx={{ display: "flex", justifyContent: "center" }}
           >
             <Card
               sx={{
-                width: isMobile ? "90%" : 300,
-                height: 300,
+                width: isMobile ? "70%" : 250,
+                height: 270,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 background: darkMode
-                  ? "linear-gradient(180deg, #0F0F0F 0%, #1A0938 50%,#0F0F0F 100%)"
+                  ? "none"
                   : "#fff",
                 color: darkMode ? "#fff" : "#000",
                 borderRadius: 3,
@@ -140,9 +142,9 @@ function Projects({ darkMode }) {
                 alt={project.title}
                 sx={{
                   height: "50%",
-                  objectFit: "cover",
-                  borderTopLeftRadius: 12,
-                  borderTopRightRadius: 12,
+                  objectFit: "70%",
+                  borderTopLeftRadius: 8,
+                  borderTopRightRadius: 8,
                 }}
               />
 
@@ -170,7 +172,7 @@ function Projects({ darkMode }) {
                   sx={{
                     mb: 2,
                     color: darkMode ? "#ccc" : "#555",
-                    fontSize: isMobile ? "0.7rem" : "0.8rem",
+                    fontSize: isMobile ? "0.6rem" : "0.7rem",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
@@ -189,20 +191,20 @@ function Projects({ darkMode }) {
                   }}
                 >
                   <Button
-                    variant="outlined"
+                    variant="none"
                     href={project.github}
                     target="_blank"
                     size={isMobile ? "small" : "medium"}
                   >
-                    GitHub
+                  <GitHub />
                   </Button>
                   <Button
-                    variant="contained"
+                    variant="none"
                     href={project.demo}
                     target="_blank"
                     size={isMobile ? "small" : "medium"}
                   >
-                    Demo
+                  <PlayCircleOutline/>
                   </Button>
                 </Box>
               </CardContent>
