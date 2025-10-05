@@ -62,7 +62,7 @@ function Portfolio({ darkMode }) {
             width: "100%",
             maxWidth: isMobile ? 250 : 300,
             height: isMobile ? 120 : 100,
-            mt: { xs: 0 },
+            mt: { xs: -3 },
             ml: {xs: -11, md: -10},
             mb: { xs: -2,md: 0},
           }}
