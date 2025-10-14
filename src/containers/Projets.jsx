@@ -105,7 +105,7 @@ export default function Projects({ darkMode = false }) {
       id="projets"
       maxWidth={false}
       sx={{
-        width: {xs: "90vw", md: "90%"},
+        width: {xs: "93vw", md: "90%"},
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -113,7 +113,7 @@ export default function Projects({ darkMode = false }) {
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F, #2D1B69, #0F0F0F)"
           : "#f7f7fb",
-        overflowX: "hidden",
+        overflow: "hidden",
       }}
     >
       <Box sx={{ position: "relative", zIndex: 1, textAlign: "center", px: { xs: 2, sm: 4, md: 0 } }}>
@@ -247,7 +247,7 @@ export default function Projects({ darkMode = false }) {
                 />
               </Box>
 
-              <Typography variant="body1" sx={{mb: 3, textALign: "center"}}>
+              <Typography variant="body1" sx={{mb: 3, textAlign: "center"}}>
                 {selectedProject.description}
               </Typography>
 
