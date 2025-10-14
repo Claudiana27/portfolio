@@ -127,7 +127,6 @@ function About({ darkMode }) {
           })}
         </Box>
 
-Comment aligner les cercles en 3 meme dans le mobile:{/* Compétences techniques */}
         <Typography
           variant={isMobile ? "h5" : "h4"}
           fontWeight="bold"
@@ -173,7 +172,7 @@ Comment aligner les cercles en 3 meme dans le mobile:{/* Compétences techniques
                   md: "0 0 33.33%",
                 },
                 maxWidth: {
-                  xs: "100%",
+                  xs: "33.33%",
                   sm: "50%",
                   md: "33.33%",
                 },

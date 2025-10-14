@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
 import {
   Container,
   Typography,
@@ -6,16 +7,21 @@ import {
   Button,
   Card,
   CardMedia,
-  CardContent,
-  Grid,
   useMediaQuery,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
 } from "@mui/material";
-import { GitHub, PlayCircleOutline } from "@mui/icons-material";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import CloseIcon from "@mui/icons-material/Close";
 
 const projects = [
   {
     title: "Portfolio 3D",
-    description: "Un site portfolio interactif avec React et Three.js.",
+    description: "Un site portfolio interactif avec React et Three.js jhqskdjqdjmljdpopqdl mlqmlqmlsjdkqsbd qhjdsxjqhdkqdljdqlkqlks dlùkfdsqlkfdsjfkds hfjdsvnbvshd vvsjcvqkcqkclqnclqknclk qnclkqsncsqbcd vshdv csjcbqbcqkckjq.",
     images: ["/textures/port.jpg", "/textures/port2.jpg"],
     github: "https://github.com/tonprofil/portfolio",
     demo: "https://tonsite.com/portfolio",
@@ -57,30 +63,49 @@ const projects = [
   },
 ];
 
-function Projects({ darkMode }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState({});
+export default function Projects({ darkMode = false }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(() =>
+    projects.map(() => 0)
+  );
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [paused, setPaused] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
-  const isTablet = useMediaQuery("(max-width:900px)");
+  const controls = useAnimation();
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndexes) => {
-        const newIndexes = {};
-        projects.forEach((_, i) => {
-          newIndexes[i] = prevIndexes[i] === 1 ? 0 : 1;
-        });
-        return newIndexes;
-      });
+      setCurrentImageIndex((prev) =>
+        prev.map((val, i) => (val + 1) % projects[i].images.length)
+      );
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const animateScroll = async () => {
+      if (!scrollRef.current) return;
+
+      const scrollWidth = scrollRef.current.scrollWidth / 3;
+      await controls.start({
+        x: [-0, -scrollWidth],
+        transition: {
+          duration: isMobile ? 55 : 40, // plus lent sur mobile
+          ease: "linear",
+          repeat: Infinity,
+        },
+      });
+    };
+    if (!paused) animateScroll();
+    else controls.stop();
+  }, [paused, controls, isMobile]);
 
   return (
     <Container
       id="projets"
       maxWidth={false}
       sx={{
-        width: {xs: "100%", md: "90%"},
+        width: {xs: "90vw", md: "90%"},
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -88,132 +113,189 @@ function Projects({ darkMode }) {
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F, #2D1B69, #0F0F0F)"
           : "#f7f7fb",
-        transition: "background-color 0.5s",
         overflowX: "hidden",
       }}
     >
-      {/* Titre */}
+      <Box sx={{ position: "relative", zIndex: 1, textAlign: "center", px: { xs: 2, sm: 4, md: 0 } }}>
       <Typography
         variant={isMobile ? "h5" : "h3"}
         fontWeight="bold"
         gutterBottom
         color={darkMode ? "#fff" : "text.primary"}
-        sx={{ mb: 6, textAlign: "center", fontSize: {md: 37} }}
+        sx={{ mt: { xs: 2 }, textAlign: "center", fontSize: { md: 36 } }}
       >
         MES PROJETS
       </Typography>
 
-      {/* Grille des projets */}
-      <Grid container spacing={4} justifyContent="center" sx={{mt: 5}}>
-        {projects.map((project, index) => (
-          <Grid
-            item
-            xs={6}
-            sm={6}
-            md={6}
-            lg={3}
-            key={index}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <Card
-              sx={{
-                width: isMobile ? "70%" : 250,
-                height: 270,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                background: darkMode
-                  ? "none"
-                  : "#fff",
-                color: darkMode ? "#fff" : "#000",
-                borderRadius: 3,
-                boxShadow: "0px 6px 15px rgba(0,0,0,0.2)",
-                transition: "transform 0.3s, box-shadow 0.3s",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: "0px 12px 24px rgba(0,0,0,0.3)",
-                },
-              }}
-            >
-              {/* Image */}
-              <CardMedia
-                component="img"
-                image={project.images[currentImageIndex[index] || 0]}
-                alt={project.title}
-                sx={{
-                  height: "50%",
-                  objectFit: "70%",
-                  borderTopLeftRadius: 8,
-                  borderTopRightRadius: 8,
-                }}
-              />
+      {/* Bande défilante */}
+      <Box
+        sx={{
+          width: "100%",
+          height: isMobile ? 160 : 220,
+          overflow: "hidden",
+          py: { xs: 2, md: 4 },
+          mt: 5,
+          position: "relative",
+        }}
+      >
+        <Box
+          ref={scrollRef}
+          component={motion.div}
+          animate={controls}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          sx={{
+            display: "flex",
+            gap: isMobile ? "1rem" : "1.5rem",
+            alignItems: "center",
+            width: "fit-content",
+          }}
+        >
+          {[...projects, ...projects, ...projects].map((project, idx) => {
+            const originalIndex = idx % projects.length;
+            const imgIndex = currentImageIndex[originalIndex] || 0;
 
-              {/* Texte + boutons */}
-              <CardContent
+            return (
+              <Card
+                key={`${project.title}-${idx}`}
                 sx={{
-                  flexGrow: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  textAlign: "center",
-                  p: 2,
+                  width: isMobile ? 140 : 220,
+                  height: isMobile ? 140 : 200,
+                  flexShrink: 0,
+                  borderRadius: 3,
+                  overflow: "hidden",
+                  boxShadow: 4,
+                  position: "relative",
+                  cursor: "pointer",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: "0 0 20px rgba(99, 102, 241, 0.6)",
+                  },
                 }}
+                onClick={() => setSelectedProject(project)}
               >
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  gutterBottom
-                  sx={{ fontSize: isMobile ? "0.9rem" : "1rem" }}
-                >
-                  {project.title}
-                </Typography>
-                <Typography
-                  variant="body2"
+                <CardMedia
+                  component="img"
+                  image={project.images[imgIndex]}
+                  alt={project.title}
                   sx={{
-                    mb: 2,
-                    color: darkMode ? "#ccc" : "#555",
-                    fontSize: isMobile ? "0.6rem" : "0.7rem",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
                   }}
-                >
-                  {project.description}
-                </Typography>
+                />
                 <Box
                   sx={{
-                    display: "flex",
-                    gap: 1,
-                    justifyContent: "center",
-                    flexWrap: "wrap",
+                    position: "absolute",
+                    bottom: 0,
+                    width: "100%",
+                    bgcolor: "rgba(0,0,0,0.55)",
+                    color: "white",
+                    textAlign: "center",
+                    py: 0.5,
+                    fontSize: isMobile ? "0.7rem" : "0.9rem",
                   }}
                 >
-                  <Button
-                    variant="none"
-                    href={project.github}
-                    target="_blank"
-                    size={isMobile ? "small" : "medium"}
-                  >
-                  <GitHub />
-                  </Button>
-                  <Button
-                    variant="none"
-                    href={project.demo}
-                    target="_blank"
-                    size={isMobile ? "small" : "medium"}
-                  >
-                  <PlayCircleOutline/>
-                  </Button>
+                  {project.title}
                 </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+              </Card>
+            );
+          })}
+        </Box>
+      </Box>
+
+      {/* Détails projet */}
+      <Dialog
+        open={Boolean(selectedProject)}
+          onClose={() => setSelectedProject(null)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          {selectedProject?.title}
+          <IconButton onClick={() => setSelectedProject(null)}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <DialogContent>
+          {selectedProject && (
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <Box
+                sx={{
+                  width: "100%",
+                  height: 120,
+                  overflow: "hidden",
+                  borderRadius: 2,
+                }}
+              >
+                <img
+                  src={selectedProject.images[0]}
+                  alt={selectedProject.title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+
+              <Typography variant="body1" sx={{mb: 3, textALign: "center"}}>
+                {selectedProject.description}
+              </Typography>
+
+              <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                {selectedProject.images.map((img, i) => (
+                  <Box
+                    key={i}
+                    sx={{
+                      width: 80,
+                      height: 60,
+                      borderRadius: 1,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`${selectedProject.title}-${i}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          )}
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            startIcon={<GitHubIcon />}
+            href={selectedProject?.github}
+            target="_blank"
+          >
+            
+          </Button>
+          <Button
+            startIcon={<PlayCircleOutlineIcon />}
+            href={selectedProject?.demo}
+            target="_blank"
+          >
+            
+          </Button>
+        </DialogActions>
+        </Dialog>
+        </Box>
     </Container>
   );
 }
-
-export default Projects;

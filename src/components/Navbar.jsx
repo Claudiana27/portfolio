@@ -12,7 +12,7 @@ const menuItems = ["Accueil", "A propos", "Projets", "Contact"];*/}
 
   return (
     <AppBar position="fixed" color="default" elevation={2} sx={{ backgroundColor: "#ffffff" }}>
-      <Toolbar sx={{ justifyContent: {sx: "left", md: "center" } }}>
+      <Toolbar sx={{ justifyContent: {sx: "center", md: "center" }, ml:{xs: "5%"} }}>
         <Box sx={{ display: "flex", gap: { sx: 2, md: 4 } }}>
           <Button color="inherit" href="#home" sx={{ fontWeight: "bold", textTransform: "none", fontSize: { xs: "11px", md: "11px" } }}>
             Accueil

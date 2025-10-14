@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { Text3D, OrbitControls } from "@react-three/drei";
 import pdp from "../assets/Pdp.png";
 
+
 function Portfolio({ darkMode }) {
   const textRef = useRef();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -112,7 +113,7 @@ function Portfolio({ darkMode }) {
         <Button
           variant="contained"
           size="medium"
-          href="#projets"
+          href="/CV_Diana.pdf" download
           sx={{
             background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)",
             borderRadius: "50px",
