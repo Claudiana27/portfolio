@@ -21,7 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const projects = [
   {
     title: "Portfolio 3D",
-    description: "Un site portfolio interactif avec React et Three.js jhqskdjqdjmljdpopqdl mlqmlqmlsjdkqsbd qhjdsxjqhdkqdljdqlkqlks dlùkfdsqlkfdsjfkds hfjdsvnbvshd vvsjcvqkcqkclqnclqknclk qnclkqsncsqbcd vshdv csjcbqbcqkckjq.",
+    description: "Un site portfolio interactif avec React et Three.js.",
     images: ["/textures/port.jpg", "/textures/port2.jpg"],
     github: "https://github.com/tonprofil/portfolio",
     demo: "https://tonsite.com/portfolio",
@@ -69,10 +69,17 @@ export default function Projects({ darkMode = false }) {
   );
   const [selectedProject, setSelectedProject] = useState(null);
   const [paused, setPaused] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
   const controls = useAnimation();
   const scrollRef = useRef(null);
 
+  // ✅ éviter bug SSR / page blanche
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // ✅ changer l’image de chaque carte
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) =>
@@ -82,47 +89,55 @@ export default function Projects({ darkMode = false }) {
     return () => clearInterval(interval);
   }, []);
 
+  // ✅ animation infinie fluide
   useEffect(() => {
-    const animateScroll = async () => {
-      if (!scrollRef.current) return;
+    if (!mounted || !scrollRef.current) return;
 
+    const animateScroll = async () => {
       const scrollWidth = scrollRef.current.scrollWidth / 3;
+      if (!scrollWidth) return;
+
       await controls.start({
-        x: [-0, -scrollWidth],
+        x: [0, -scrollWidth],
         transition: {
-          duration: isMobile ? 55 : 40, // plus lent sur mobile
+          duration: isMobile ? 55 : 40,
           ease: "linear",
           repeat: Infinity,
         },
       });
     };
+
     if (!paused) animateScroll();
     else controls.stop();
-  }, [paused, controls, isMobile]);
+
+    return () => controls.stop();
+  }, [mounted, paused, controls, isMobile]);
 
   return (
     <Container
       id="projets"
       maxWidth={false}
+      disableGutters
       sx={{
-        width: {xs: "93vw", md: "90%"},
+        width: {xs:"90vw", md:"100%"},
+        px: { xs: 2, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         py: { xs: 6, md: 10 },
         background: darkMode
-          ? "linear-gradient(180deg, #0F0F0F, #2D1B69, #0F0F0F)"
+          ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
           : "#f7f7fb",
-        overflow: "hidden",
+        overflowX: "hidden", // ✅ évite le glissement latéral
+        boxSizing: "border-box",
       }}
     >
-      <Box sx={{ position: "relative", zIndex: 1, textAlign: "center", px: { xs: 2, sm: 4, md: 0 } }}>
       <Typography
         variant={isMobile ? "h5" : "h3"}
         fontWeight="bold"
         gutterBottom
         color={darkMode ? "#fff" : "text.primary"}
-        sx={{ mt: { xs: 2 }, textAlign: "center", fontSize: { md: 36 } }}
+        sx={{ textAlign: "center", fontSize: { md: 36 } }}
       >
         MES PROJETS
       </Typography>
@@ -136,6 +151,8 @@ export default function Projects({ darkMode = false }) {
           py: { xs: 2, md: 4 },
           mt: 5,
           position: "relative",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <Box
@@ -208,7 +225,7 @@ export default function Projects({ darkMode = false }) {
       {/* Détails projet */}
       <Dialog
         open={Boolean(selectedProject)}
-          onClose={() => setSelectedProject(null)}
+        onClose={() => setSelectedProject(null)}
         maxWidth="sm"
         fullWidth
       >
@@ -247,7 +264,10 @@ export default function Projects({ darkMode = false }) {
                 />
               </Box>
 
-              <Typography variant="body1" sx={{mb: 3, textAlign: "center"}}>
+              <Typography
+                variant="body1"
+                sx={{ mb: 3, textAlign: "center" }}
+              >
                 {selectedProject.description}
               </Typography>
 
@@ -284,18 +304,17 @@ export default function Projects({ darkMode = false }) {
             href={selectedProject?.github}
             target="_blank"
           >
-            
+            GitHub
           </Button>
           <Button
             startIcon={<PlayCircleOutlineIcon />}
             href={selectedProject?.demo}
             target="_blank"
           >
-            
+            Démo
           </Button>
         </DialogActions>
-        </Dialog>
-        </Box>
+      </Dialog>
     </Container>
   );
 }
