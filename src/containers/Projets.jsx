@@ -119,7 +119,7 @@ export default function Projects({ darkMode = false }) {
       maxWidth={false}
       disableGutters
       sx={{
-        width: {xs:"90vw", md:"100%"},
+        width: {xs:"90vw", md:"90%"},
         px: { xs: 2, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
