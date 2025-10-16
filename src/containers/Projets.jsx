@@ -247,7 +247,7 @@ export default function Projects({ darkMode = false }) {
                 target="_blank"
                 disabled={!selectedProject?.github}
               >
-                GitHub
+                
               </Button>
               <Button
                 startIcon={<PlayCircleOutlineIcon />}
@@ -255,7 +255,7 @@ export default function Projects({ darkMode = false }) {
                 target="_blank"
                 disabled={!selectedProject?.demo}
               >
-                Démo
+                
               </Button>
             </DialogActions>
           </Dialog>
