@@ -41,6 +41,18 @@
   color: #888;
 }
 @keyframes pulse {
-  0%,100% { transform: scale(1); opacity: 0.4;}
-  50% {transform: scale(1.2); opacity: 0.6;}
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+}
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
