@@ -74,12 +74,10 @@ export default function Projects({ darkMode = false }) {
   const controls = useAnimation();
   const scrollRef = useRef(null);
 
-  // ✅ éviter bug SSR / page blanche
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // ✅ changer l’image de chaque carte
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) =>
@@ -89,7 +87,6 @@ export default function Projects({ darkMode = false }) {
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ animation infinie fluide
   useEffect(() => {
     if (!mounted || !scrollRef.current) return;
 
@@ -119,16 +116,16 @@ export default function Projects({ darkMode = false }) {
       maxWidth={false}
       disableGutters
       sx={{
-        width: {xs:"90vw", md:"90%"},
+        width: { xs: "92vw", md: "90%" },
         px: { xs: 2, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        py: { xs: 6, md: 10 },
+        py: {xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
           : "#f7f7fb",
-        overflowX: "hidden", // ✅ évite le glissement latéral
+        overflowX: "hidden",
         boxSizing: "border-box",
       }}
     >
@@ -194,8 +191,8 @@ export default function Projects({ darkMode = false }) {
               >
                 <CardMedia
                   component="img"
-                  image={project.images[imgIndex]}
-                  alt={project.title}
+                  image={project.images?.[imgIndex] || ""}
+                  alt={project.title || ""}
                   sx={{
                     width: "100%",
                     height: "100%",
@@ -214,7 +211,7 @@ export default function Projects({ darkMode = false }) {
                     fontSize: isMobile ? "0.7rem" : "0.9rem",
                   }}
                 >
-                  {project.title}
+                  {project.title || ""}
                 </Box>
               </Card>
             );
@@ -236,7 +233,7 @@ export default function Projects({ darkMode = false }) {
             justifyContent: "space-between",
           }}
         >
-          {selectedProject?.title}
+          {selectedProject?.title || ""}
           <IconButton onClick={() => setSelectedProject(null)}>
             <CloseIcon />
           </IconButton>
@@ -254,8 +251,8 @@ export default function Projects({ darkMode = false }) {
                 }}
               >
                 <img
-                  src={selectedProject.images[0]}
-                  alt={selectedProject.title}
+                  src={selectedProject?.images?.[0] || ""}
+                  alt={selectedProject?.title || ""}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -268,11 +265,11 @@ export default function Projects({ darkMode = false }) {
                 variant="body1"
                 sx={{ mb: 3, textAlign: "center" }}
               >
-                {selectedProject.description}
+                {selectedProject?.description || ""}
               </Typography>
 
               <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                {selectedProject.images.map((img, i) => (
+                {selectedProject?.images?.map((img, i) => (
                   <Box
                     key={i}
                     sx={{
@@ -283,8 +280,8 @@ export default function Projects({ darkMode = false }) {
                     }}
                   >
                     <img
-                      src={img}
-                      alt={`${selectedProject.title}-${i}`}
+                      src={img || ""}
+                      alt={`${selectedProject?.title || ""}-${i}`}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -301,15 +298,17 @@ export default function Projects({ darkMode = false }) {
         <DialogActions>
           <Button
             startIcon={<GitHubIcon />}
-            href={selectedProject?.github}
+            href={selectedProject?.github || "#"}
             target="_blank"
+            disabled={!selectedProject?.github}
           >
             GitHub
           </Button>
           <Button
             startIcon={<PlayCircleOutlineIcon />}
-            href={selectedProject?.demo}
+            href={selectedProject?.demo || "#"}
             target="_blank"
+            disabled={!selectedProject?.demo}
           >
             Démo
           </Button>
