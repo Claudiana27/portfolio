@@ -18,16 +18,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 
-const projects = [
-  {
-    title: "Portfolio 3D",
-    description: "Un site portfolio interactif avec React et Three.js.",
-    images: ["/textures/port.jpg", "/textures/port2.jpg"],
-    github: "https://github.com/tonprofil/portfolio",
-    demo: "https://tonsite.com/portfolio",
-  },
-  // ... les autres projets
-];
+const projects = [{ title: "Portfolio 3D", description: "Un site portfolio interactif avec React et Three.js.", images: ["/textures/port.jpg", "/textures/port2.jpg"], github: "https://github.com/tonprofil/portfolio", demo: "https://tonsite.com/portfolio", },
+  { title: "Application Mobile", description: "Une app Android connectée à une API MySQL.", images: ["/textures/images (2).jpeg", "/textures/téléchargement.jpeg"], github: "https://github.com/tonprofil/mobile-app", demo: "https://tonsite.com/mobile", },
+  { title: "E-commerce VR", description: "Boutique en ligne immersive en réalité virtuelle.", images: ["/textures/accessoires_H.jpeg", "/textures/téléchargement (6).png"], github: "https://github.com/tonprofil/ecommerce-vr", demo: "https://tonsite.com/vr-shop", },
+  { title: "Web SIG", description: "Application SIG avec PostGIS et Leaflet.", images: ["/textures/design.png", "/textures/téléchargement (7).png"], github: "https://github.com/tonprofil/web-sig", demo: "https://tonsite.com/websig", },
+  { title: "Hotel Booking", description: "Système de réservation d’hôtel en temps réel.", images: ["/textures/image-restaurant.jpg", "/textures/image-plane.jpg"], github: "https://github.com/tonprofil/hotel-booking", demo: "https://tonsite.com/hotel", },
+  { title: "Analyse Data", description: "Analyse de données interactives avec Python et React.", images: ["/textures/image-mockups.png", "/textures/image-currency.jpg"], github: "https://github.com/tonprofil/data-analysis", demo: "https://tonsite.com/data", },];
 
 export default function Projects({ darkMode = false }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(() =>
