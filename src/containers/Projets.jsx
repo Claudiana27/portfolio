@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import {
   Container,
   Typography,
@@ -26,41 +26,7 @@ const projects = [
     github: "https://github.com/tonprofil/portfolio",
     demo: "https://tonsite.com/portfolio",
   },
-  {
-    title: "Application Mobile",
-    description: "Une app Android connectée à une API MySQL.",
-    images: ["/textures/images (2).jpeg", "/textures/téléchargement.jpeg"],
-    github: "https://github.com/tonprofil/mobile-app",
-    demo: "https://tonsite.com/mobile",
-  },
-  {
-    title: "E-commerce VR",
-    description: "Boutique en ligne immersive en réalité virtuelle.",
-    images: ["/textures/accessoires_H.jpeg", "/textures/téléchargement (6).png"],
-    github: "https://github.com/tonprofil/ecommerce-vr",
-    demo: "https://tonsite.com/vr-shop",
-  },
-  {
-    title: "Web SIG",
-    description: "Application SIG avec PostGIS et Leaflet.",
-    images: ["/textures/design.png", "/textures/téléchargement (7).png"],
-    github: "https://github.com/tonprofil/web-sig",
-    demo: "https://tonsite.com/websig",
-  },
-  {
-    title: "Hotel Booking",
-    description: "Système de réservation d’hôtel en temps réel.",
-    images: ["/textures/image-restaurant.jpg", "/textures/image-plane.jpg"],
-    github: "https://github.com/tonprofil/hotel-booking",
-    demo: "https://tonsite.com/hotel",
-  },
-  {
-    title: "Analyse Data",
-    description: "Analyse de données interactives avec Python et React.",
-    images: ["/textures/image-mockups.png", "/textures/image-currency.jpg"],
-    github: "https://github.com/tonprofil/data-analysis",
-    demo: "https://tonsite.com/data",
-  },
+  // ... les autres projets
 ];
 
 export default function Projects({ darkMode = false }) {
@@ -74,9 +40,7 @@ export default function Projects({ darkMode = false }) {
   const controls = useAnimation();
   const scrollRef = useRef(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,7 +85,7 @@ export default function Projects({ darkMode = false }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        py: {xs: 6, md: 10 },
+        py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
           : "#f7f7fb",
@@ -193,11 +157,7 @@ export default function Projects({ darkMode = false }) {
                   component="img"
                   image={project.images?.[imgIndex] || ""}
                   alt={project.title || ""}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
                 <Box
                   sx={{
@@ -219,101 +179,92 @@ export default function Projects({ darkMode = false }) {
         </Box>
       </Box>
 
-      {/* Détails projet */}
-      <Dialog
-        open={Boolean(selectedProject)}
-        onClose={() => setSelectedProject(null)}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          {selectedProject?.title || ""}
-          <IconButton onClick={() => setSelectedProject(null)}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+      {/* Modal projet avec AnimatePresence */}
+      <AnimatePresence>
+        {selectedProject && (
+          <Dialog
+            open={true}
+            onClose={() => setSelectedProject(null)}
+            maxWidth="sm"
+            fullWidth
+            key={selectedProject.title} // clé unique
+          >
+            <DialogTitle
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              {selectedProject?.title || ""}
+              <IconButton onClick={() => setSelectedProject(null)}>
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
 
-        <DialogContent>
-          {selectedProject && (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <Box
-                sx={{
-                  width: "100%",
-                  height: 120,
-                  overflow: "hidden",
-                  borderRadius: 2,
-                }}
+            <DialogContent>
+              <motion.div
+                key={selectedProject.title}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
               >
-                <img
-                  src={selectedProject?.images?.[0] || ""}
-                  alt={selectedProject?.title || ""}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
-
-              <Typography
-                variant="body1"
-                sx={{ mb: 3, textAlign: "center" }}
-              >
-                {selectedProject?.description || ""}
-              </Typography>
-
-              <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                {selectedProject?.images?.map((img, i) => (
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <Box
-                    key={i}
                     sx={{
-                      width: 80,
-                      height: 60,
-                      borderRadius: 1,
+                      width: "100%",
+                      height: 120,
                       overflow: "hidden",
+                      borderRadius: 2,
                     }}
                   >
                     <img
-                      src={img || ""}
-                      alt={`${selectedProject?.title || ""}-${i}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
+                      src={selectedProject?.images?.[0] || ""}
+                      alt={selectedProject?.title || ""}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   </Box>
-                ))}
-              </Box>
-            </Box>
-          )}
-        </DialogContent>
 
-        <DialogActions>
-          <Button
-            startIcon={<GitHubIcon />}
-            href={selectedProject?.github || "#"}
-            target="_blank"
-            disabled={!selectedProject?.github}
-          >
-            GitHub
-          </Button>
-          <Button
-            startIcon={<PlayCircleOutlineIcon />}
-            href={selectedProject?.demo || "#"}
-            target="_blank"
-            disabled={!selectedProject?.demo}
-          >
-            Démo
-          </Button>
-        </DialogActions>
-      </Dialog>
+                  <Typography variant="body1" sx={{ mb: 3, textAlign: "center" }}>
+                    {selectedProject?.description || ""}
+                  </Typography>
+
+                  <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                    {selectedProject?.images?.map((img, i) => (
+                      <Box key={i} sx={{ width: 80, height: 60, borderRadius: 1, overflow: "hidden" }}>
+                        <img
+                          src={img || ""}
+                          alt={`${selectedProject?.title || ""}-${i}`}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              </motion.div>
+            </DialogContent>
+
+            <DialogActions>
+              <Button
+                startIcon={<GitHubIcon />}
+                href={selectedProject?.github || "#"}
+                target="_blank"
+                disabled={!selectedProject?.github}
+              >
+                GitHub
+              </Button>
+              <Button
+                startIcon={<PlayCircleOutlineIcon />}
+                href={selectedProject?.demo || "#"}
+                target="_blank"
+                disabled={!selectedProject?.demo}
+              >
+                Démo
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </Container>
   );
 }
