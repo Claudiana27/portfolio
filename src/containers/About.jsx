@@ -160,7 +160,7 @@ function About({ darkMode }) {
             { value: 70, label: "PHP" },
             { value: 70, label: "Java" },
             { value: 90, label: "HTML / CSS" },
-            { value: 70, label: "Bootstrap/Tailwind" },
+            { value: 70, label: "Bootstrap/TailwindCss" },
             { value: 70, label: "Three.js" },
             { value: 70, label: "Typescript/Nest.js" },
           ].map((skill, index) => (
