@@ -93,12 +93,13 @@ export default function Projects({ darkMode = false }) {
     >
       <Typography
         variant={isMobile ? "h5" : "h3"}
+        textAlign="center"
         fontWeight="bold"
         gutterBottom
         color={darkMode ? "#fff" : "text.primary"}
-        sx={{ textAlign: "center", fontSize: { md: 36 }, mt: {xs: 4} }}
+        sx={{ textAlign: "center", fontSize: { md: 37 }, mt: {xs: 4} }}
       >
-        PROJETS MES
+        MES PROJETS 
       </Typography>
 
       {/* Bande défilante */}
