@@ -157,7 +157,7 @@ function Contact({ darkMode }) {
           zIndex: 1,
         }}
       >
-        <Typography variant="body2" color={darkMode ? "#ccc" : "text.secondary"} sx={{fontSize: "12px"}}}>
+        <Typography variant="body2" color={darkMode ? "#ccc" : "text.secondary"} sx={{fontSize: "12px", ml:{md: "-10%"}}}>
           © {new Date().getFullYear()} Diana. Tous droits réservés.
         </Typography>
       </Box>
