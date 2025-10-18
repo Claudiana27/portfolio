@@ -63,7 +63,8 @@ function Contact({ darkMode }) {
       id="contact"
       maxWidth={false}
       sx={{
-        width: {xs: "95%", md: "90%"},
+        width: { xs: "95%", md: "90%" },
+        px: { xs: 3, md: 6 },
         py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
