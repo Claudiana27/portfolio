@@ -22,7 +22,7 @@ function Portfolio({ darkMode }) {
       id="home"
       maxWidth={false}
       sx={{
-        width: {xs: "95%", md: "90%"},
+        width: {xs: "97%", md: "90%"},
         minHeight: { xs: "75vh" , md: "100vh"},
         display: "flex",
         flexDirection: { xs: "column", md: "row" },

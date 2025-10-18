@@ -63,7 +63,7 @@ function Contact({ darkMode }) {
       id="contact"
       maxWidth={false}
       sx={{
-        width: { xs: "95%", md: "90%" },
+        width: { xs: "97%", md: "90%" },
         px: { xs: 1, md: 6 },
         py: { xs: 6, md: 10 },
         background: darkMode
