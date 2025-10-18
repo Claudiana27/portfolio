@@ -22,7 +22,7 @@ function Portfolio({ darkMode }) {
       id="home"
       maxWidth={false}
       sx={{
-        width: {xs: "100%", md: "90%"},
+        width: {xs: "95%", md: "90%"},
         minHeight: { xs: "75vh" , md: "100vh"},
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
@@ -30,7 +30,7 @@ function Portfolio({ darkMode }) {
         justifyContent: "center",
         textAlign: "center",
         pt: { xs: 4, md: 8 },
-        px: { xs: 2, md: 6 },
+        px: { xs: "center", md: 6 },
         boxSizing: "border-box",
         background: darkMode ? "linear-gradient(180deg, #0F0F0F, #2D1B69, #0F0F0F)" : "#ffffff",
         transition: "background-color 0.5s",

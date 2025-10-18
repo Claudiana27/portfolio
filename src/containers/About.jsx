@@ -26,7 +26,7 @@ function About({ darkMode }) {
       id="about"
       maxWidth={false}
       sx={{
-        width: {xs: "100%", md: "90%"},
+        width: {xs: "95%", md: "90%"},
         py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"

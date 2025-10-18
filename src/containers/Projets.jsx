@@ -76,17 +76,19 @@ export default function Projects({ darkMode = false }) {
       maxWidth={false}
       disableGutters
       sx={{
-        width: { xs: "94vw", md: "90%" },
-        px: { xs: 2, sm: 3, md: 6 },
+        width: { xs: "87vw", md: "90%" },
+        px: { xs: 0, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
         py: { xs: 6, md: 10 },
         background: darkMode
           ? "linear-gradient(180deg, #0F0F0F 0%, #2D1B69 50%, #0F0F0F 100%)"
           : "#f7f7fb",
+        position: "relative",
         overflowX: "hidden",
-        boxSizing: "border-box",
       }}
     >
       <Typography
@@ -94,7 +96,7 @@ export default function Projects({ darkMode = false }) {
         fontWeight="bold"
         gutterBottom
         color={darkMode ? "#fff" : "text.primary"}
-        sx={{ textAlign: "center", fontSize: { md: 36 } }}
+        sx={{ textAlign: "center", fontSize: { md: 36 }, mt: {xs: 4} }}
       >
         MES PROJETS
       </Typography>
@@ -105,6 +107,7 @@ export default function Projects({ darkMode = false }) {
           width: "100%",
           height: isMobile ? 160 : 220,
           overflow: "hidden",
+          px: {xs: 2},
           py: { xs: 2, md: 4 },
           mt: 5,
           position: "relative",

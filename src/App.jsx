@@ -18,7 +18,7 @@ function App() {
       <Portfolio darkMode={darkMode} />
       <About darkMode={darkMode} />
       <Projets darkMode={darkMode} />
-  <Contact darkMode={darkMode} />
+      <Contact darkMode={darkMode} />
     </div>
   );
 }
