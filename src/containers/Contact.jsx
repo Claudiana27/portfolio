@@ -106,7 +106,7 @@ function Contact({ darkMode }) {
         <Typography
           variant={isMobile ? "h4" : "h3"}
           fontWeight="bold"
-          fontSize="40px"
+          fontSize="37px"
           gutterBottom
           color={darkMode ? "#fff" : "text.primary"}
         >
