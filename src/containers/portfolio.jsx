@@ -30,7 +30,7 @@ function Portfolio({ darkMode }) {
         justifyContent: "center",
         textAlign: "center",
         pt: { xs: 4, md: 8 },
-        px: { xs: 3, md: 6 },
+        px: { xs: 1, md: 6 },
         boxSizing: "border-box",
         background: darkMode ? "linear-gradient(180deg, #0F0F0F, #2D1B69, #0F0F0F)" : "#ffffff",
         transition: "background-color 0.5s",

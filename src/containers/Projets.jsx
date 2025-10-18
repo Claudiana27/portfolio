@@ -76,7 +76,7 @@ export default function Projects({ darkMode = false }) {
       maxWidth={false}
       disableGutters
       sx={{
-        width: { xs: "85vw", md: "90%" },
+        width: { xs: "82.5vw", md: "90%" },
         px: { xs: 0, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
@@ -98,7 +98,7 @@ export default function Projects({ darkMode = false }) {
         color={darkMode ? "#fff" : "text.primary"}
         sx={{ textAlign: "center", fontSize: { md: 36 }, mt: {xs: 4} }}
       >
-        MES PROJETS
+        PROJETS MES
       </Typography>
 
       {/* Bande défilante */}
