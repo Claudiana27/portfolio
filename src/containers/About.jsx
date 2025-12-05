@@ -5,6 +5,10 @@ import SkillCircle from "../components/SkillCircle";
 
 const items = [
   {
+    title: "Cours d’anglais – Centre MSEFF",
+    subtitle: "Formation certifiée en communication orale et professionnelle",
+  },
+  {
     title: "Actuellement en Master 1 en Informatique",
     subtitle: "A l'Ecole Nationale d'Informatique | Université de Fianarantsoa",
   },
