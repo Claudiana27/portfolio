@@ -159,14 +159,14 @@ function About({ darkMode }) {
         >
           {[
             { value: 90, label: "React.js" },
-            { value: 90, label: "Next.js" },
-            { value: 60, label: "Node.js" },
+            { value: 70, label: "ReactNative" },
+            { value: 50, label: "Next.js" },
+            { value: 80, label: "Node.js" },
             { value: 70, label: "PHP" },
             { value: 70, label: "Java" },
             { value: 90, label: "HTML / CSS" },
             { value: 70, label: "Bootstrap/TailwindCss" },
             { value: 70, label: "Three.js" },
-            { value: 70, label: "Typescript/Nest.js" },
           ].map((skill, index) => (
             <Box
               key={index}

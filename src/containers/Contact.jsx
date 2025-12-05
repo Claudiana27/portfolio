@@ -2,8 +2,8 @@ import React, { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame, Canvas } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
-import { Container, Typography, Box, TextField, Button, useMediaQuery } from "@mui/material";
-import { GitHub, LinkedIn, Facebook } from "@mui/icons-material";
+import { Container, Typography, Box, TextField, Button, useMediaQuery, Snackbar, Alert } from "@mui/material";
+import emailjs from "emailjs-com";
 
 function FloatingParticles({ count = 1500, darkMode }) {
   const pointsRef = useRef();
@@ -51,12 +51,61 @@ function Contact({ darkMode }) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Mise à jour de la taille de l'écran
+  // Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const handleResize = () => setWindowWidth(window.innerWidth);
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Handle form input changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setSnackbarMessage("Veuillez remplir tous les champs !");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+
+    emailjs.send(
+      "service_8oyvemo",       // ton Service ID
+      "template_1p99z2p",      // ton Template ID
+      {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.message,
+        to_email: "nomenjanaharydiana27@gmail.com"
+      },
+      "8XCQxbDU7QhR0jZNb"      // Public Key
+    ).then((result) => {
+      setSnackbarMessage("Message envoyé avec succès !");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+      setFormData({ name: "", email: "", message: "" }); // reset form
+    }, (error) => {
+      setSnackbarMessage("Erreur lors de l'envoi. Réessayez.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      console.error(error.text);
+    });
+  };
 
   return (
     <Container
@@ -113,9 +162,12 @@ function Contact({ darkMode }) {
           Contact
         </Typography>
 
-        <Box sx={{ maxWidth: isMobile ? "100%" : 600, mx: "auto", mt: 4 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: isMobile ? "100%" : 600, mx: "auto", mt: 4 }}>
           <TextField
             label="Nom"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
             fullWidth
             sx={{ mb: 2 }}
             InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
@@ -123,6 +175,9 @@ function Contact({ darkMode }) {
           />
           <TextField
             label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             fullWidth
             sx={{ mb: 2 }}
             InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
@@ -130,6 +185,9 @@ function Contact({ darkMode }) {
           />
           <TextField
             label="Message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
             multiline
             rows={isMobile ? 3 : 4}
             fullWidth
@@ -138,12 +196,16 @@ function Contact({ darkMode }) {
             InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
           />
           <Button
+            type="submit"
             variant="contained"
-            sx={{ width: isMobile ? "30%" : "auto",fontSize: "0.7rem", background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)" }}
+            sx={{
+              width: isMobile ? "30%" : "auto",
+              fontSize: "0.7rem",
+              background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)"
+            }}
           >
             Envoyer
           </Button>
-          {/*<Typography sx={{ ml: 63, mt: -3}}> <GitHub/> <LinkedIn/> <Facebook/></Typography>*/}
         </Box>
       </Box>
 
@@ -161,6 +223,18 @@ function Contact({ darkMode }) {
           © {new Date().getFullYear()} Diana. Tous droits réservés.
         </Typography>
       </Box>
+
+      {/* Snackbar pour feedback */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert severity={snackbarSeverity} onClose={() => setSnackbarOpen(false)} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
