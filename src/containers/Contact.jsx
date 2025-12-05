@@ -85,7 +85,7 @@ function Contact({ darkMode }) {
     }
 
     emailjs.send(
-      "service_8oyvemo",       // ton Service ID
+      "service_ljeojmx",       // ton Service ID
       "template_1p99z2p",      // ton Template ID
       {
         from_name: formData.name,
