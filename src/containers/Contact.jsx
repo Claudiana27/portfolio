@@ -3,7 +3,7 @@ import { useFrame, Canvas } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { Container, Typography, Box, TextField, Button, useMediaQuery, Snackbar, Alert } from "@mui/material";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 function FloatingParticles({ count = 1500, darkMode }) {
   const pointsRef = useRef();
