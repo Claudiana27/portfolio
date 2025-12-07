@@ -116,7 +116,7 @@ function Portfolio({ darkMode }) {
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           {/* LinkedIn à gauche */}
           <IconButton
-            href="https://www.linkedin.com/in/tonprofil/" // <-- change le lien ici
+            href="in/claudiana-rajoma-07505731b" // <-- change le lien ici
             target="_blank"
             sx={{
                fontSize: 28, // taille réduite
