@@ -310,7 +310,7 @@ export default function Projects({ darkMode = false }) {
         fullWidth
       >
         <DialogTitle>
-          Démo Application Gestion des Poubelles
+          App Gestion des Poubelles
           <IconButton
             onClick={() => setVideoOpen(false)}
             sx={{ position: "absolute", right: 8, top: 8 }}
