@@ -18,7 +18,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 
-const projects = [{ title: "Portfolio Diana", description: "Portfolio interactif présentant mes projets, mes compétences et mon parcours en tant que développeuse web,développé avec React, intégrant des animations 3D, une interface responsive et une section de contact entièrement fonctionnelle.", images: ["/textures/accueil.jpg", "/textures/mobile-port.jpg","/textures/mobile-port1.jpg","/textures/Accueil-PC.png","/textures/Compétence.png"], github: "https://github.com/Claudiana27/portfolio", demo: "https://diana27-portfolio.vercel.app/", },
+const projects = [{ title: "Portfolio Diana", description: "Portfolio interactif présentant mes projets, mes compétences et mon parcours en tant que développeuse web,développé avec React, intégrant des animations 3D, une interface responsive et une section de contact entièrement fonctionnelle.", images: ["/public/textures/accueil.jpg", "/public/textures/mobile-port.jpg","/public/textures/mobile-port1.jpg","/public/textures/Accueil-PC.png","/public/textures/Compétence.png"], github: "https://github.com/Claudiana27/portfolio", demo: "https://diana27-portfolio.vercel.app/", },
 ];
 
 export default function Projects({ darkMode = false }) {
