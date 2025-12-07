@@ -27,6 +27,9 @@ import signal from "../assets/signal.jpg";
 import diagramme from "../assets/diagramme.png";
 import form from "../assets/formulaire.png";
 import PC1 from "../assets/PC.png";
+import front from "../assets/front.png";
+import journal from "../assets/journal.png";
+import scanner from "../assets/scanner.png";
 
 const projects = [
   {
@@ -44,6 +47,14 @@ const projects = [
     images: [PC1, form, diagramme,carte, signal],
     github: "https://github.com/Claudiana27/gestion-poubelles",
     demo: "https://www.youtube.com/embed/a8MxSz4mvcg?si=_ZVj2YE-isXW9pQH",
+  },
+  {
+    title: "Application pour la gestion des poubelles dans la ville de Fianarantsoa",
+    description:
+      "Ce projet est un scanner de ports TCP inspiré de Nmap, mais en version simplifiée. L’application permet de scanner une adresse IP ou un hôte pour détecter uniquement les ports TCP ouverts, et d’afficher en temps réel les services correspondants (HTTP, FTP, SSH, etc.).Le backend en Flask réalise un scan multi-thread rapide, et envoie les résultats en continu grâce aux Server-Sent Events (SSE). Le frontend en React + Material UI offre une interface moderne permettant de suivre le scan en direct.C’est un outil léger, accessible depuis le web, et conçu pour remplir le rôle de Nmap mais en se concentrant uniquement sur la détection des ports TCP ouverts.",
+    images: [front, journal, scanner],
+    github: "https://github.com/Claudiana27/Scanner-port-TCP",
+    demo: "https://scanner-port-tcp.vercel.app/",
   },
 ];
 
