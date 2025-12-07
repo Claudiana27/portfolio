@@ -42,7 +42,7 @@ const projects = [
     description:
       "Application complète destinée à améliorer la gestion des déchets dans la ville de Fianarantsoa.Elle comprend une application mobile pour les citoyens, développée avec React Native, permettant de signaler les poubelles pleines ou endommagées avec géolocalisation.Une interface Web pour les agents municipaux, réalisée avec React, offre un tableau de bord interactif pour consulter les alertes, suivre les interventions et visualiser les points de collecte sur carte.Le backend est construit avec Node.js / Express, exposant une API REST sécurisée qui gère les signalements, les utilisateurs et les statuts d’intervention.Les données sont stockées dans une base MySQL structurée pour assurer rapidité, fiabilité et traçabilité.Ce projet a pour objectif de faciliter la communication entre les citoyens et les services de voirie, d’optimiser la collecte des déchets et d’améliorer la propreté urbaine grâce à une solution moderne et intuitive",
     images: [PC1, form, diagramme,carte, signal],
-    github: "https://github.com/Claudiana27/portfolio",
+    github: "https://github.com/Claudiana27/gestion-poubelles",
     demo: "https://www.youtube.com/embed/a8MxSz4mvcg?si=_ZVj2YE-isXW9pQH",
   },
 ];
