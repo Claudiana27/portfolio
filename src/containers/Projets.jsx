@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
+  Chip,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -39,14 +40,18 @@ const projects = [
     images: [accueil, mobile1, mobile2, pc, competence],
     github: "https://github.com/Claudiana27/portfolio",
     demo: "https://diana27-portfolio.vercel.app/",
+    stack: ["React", "MUI", "Framer Motion", "Three.js"],
+    deployment: "Frontend: Vercel | Versioning: GitHub",
   },
   {
     title: "Application pour la gestion des poubelles dans la ville de Fianarantsoa",
     description:
       "Application complète destinée à améliorer la gestion des déchets dans la ville de Fianarantsoa.Elle comprend une application mobile pour les citoyens, développée avec React Native, permettant de signaler les poubelles pleines ou endommagées avec géolocalisation.Une interface Web pour les agents municipaux, réalisée avec React, offre un tableau de bord interactif pour consulter les alertes, suivre les interventions et visualiser les points de collecte sur carte.Le backend est construit avec Node.js / Express, exposant une API REST sécurisée qui gère les signalements, les utilisateurs et les statuts d’intervention.Les données sont stockées dans une base MySQL structurée pour assurer rapidité, fiabilité et traçabilité.Ce projet a pour objectif de faciliter la communication entre les citoyens et les services de voirie, d’optimiser la collecte des déchets et d’améliorer la propreté urbaine grâce à une solution moderne et intuitive",
-    images: [PC1, form, diagramme,carte, signal],
+    images: [PC1, form, diagramme, carte, signal],
     github: "https://github.com/Claudiana27/gestion-poubelles",
     demo: "https://www.youtube.com/embed/a8MxSz4mvcg?si=_ZVj2YE-isXW9pQH",
+    stack: ["React", "React Native", "Node.js", "Express", "MySQL"],
+    deployment: "Backend/DB: Render, Railway | Mobile: EAS (Expo)",
   },
   {
     title: "Scanner de port TCP ouvert",
@@ -55,6 +60,8 @@ const projects = [
     images: [front, journal, scanner],
     github: "https://github.com/Claudiana27/Scanner-port-TCP",
     demo: "https://scanner-port-tcp.vercel.app/",
+    stack: ["React", "Flask", "SSE", "Material UI"],
+    deployment: "Frontend: Vercel | Versioning: GitHub",
   },
 ];
 
@@ -65,7 +72,7 @@ export default function Projects({ darkMode = false }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [paused, setPaused] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false); // <- Modal vidéo
+  const [videoOpen, setVideoOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
   const controls = useAnimation();
   const scrollRef = useRef(null);
@@ -110,7 +117,7 @@ export default function Projects({ darkMode = false }) {
       maxWidth={false}
       disableGutters
       sx={{
-        width: { xs: "81vw", md: "90%" },
+        width: { xs: "86.5vw", md: "90%" },
         px: { xs: 0, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
@@ -136,7 +143,6 @@ export default function Projects({ darkMode = false }) {
         PROJETS
       </Typography>
 
-      {/* Bande défilante */}
       <Box
         sx={{
           width: "100%",
@@ -213,7 +219,6 @@ export default function Projects({ darkMode = false }) {
         </Box>
       </Box>
 
-      {/* Modal projet avec AnimatePresence */}
       <AnimatePresence>
         {selectedProject && (
           <Dialog
@@ -221,7 +226,7 @@ export default function Projects({ darkMode = false }) {
             onClose={() => setSelectedProject(null)}
             maxWidth="sm"
             fullWidth
-            key={selectedProject.title} // clé unique
+            key={selectedProject.title}
           >
             <DialogTitle
               sx={{
@@ -261,10 +266,59 @@ export default function Projects({ darkMode = false }) {
 
                   <Typography
                     variant="body1"
-                    sx={{ mb: 3, textAlign: "center" }}
+                    sx={{
+                      mb: 1.5,
+                      textAlign: "left",
+                      color: darkMode ? "#e4e4e7" : "text.primary",
+                      lineHeight: 1.6,
+                    }}
                   >
                     {selectedProject?.description || ""}
                   </Typography>
+
+                  {!!selectedProject?.stack?.length && (
+                    <Box sx={{ mb: 1 }}>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          mb: 1,
+                          textAlign: "left",
+                          color: darkMode ? "#d4d4d8" : "text.secondary",
+                        }}
+                      >
+                        Stack technique
+                      </Typography>
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                        {selectedProject.stack.map((tech) => (
+                          <Chip
+                            key={tech}
+                            label={tech}
+                            size="small"
+                            sx={{
+                              bgcolor: darkMode
+                                ? "rgba(255,255,255,0.08)"
+                                : "rgba(15,23,42,0.08)",
+                              color: darkMode ? "#f5f5f5" : "#1f2937",
+                              fontWeight: 600,
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+                  )}
+
+                  {selectedProject?.deployment && (
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        textAlign: "left",
+                        color: darkMode ? "#d4d4d8" : "text.secondary",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      Déploiement: {selectedProject.deployment}
+                    </Typography>
+                  )}
 
                   <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                     {selectedProject?.images?.map((img, i) => (
@@ -281,7 +335,6 @@ export default function Projects({ darkMode = false }) {
                     ))}
                   </Box>
 
-                  {/* Bouton pour ouvrir le modal vidéo */}
                   {selectedProject.title.includes("poubelles") && (
                     <Button
                       startIcon={<PlayCircleOutlineIcon />}
@@ -301,19 +354,22 @@ export default function Projects({ darkMode = false }) {
                 href={selectedProject?.github || "#"}
                 target="_blank"
                 disabled={!selectedProject?.github}
-              ></Button>
+              >
+                Code
+              </Button>
               <Button
                 startIcon={<PlayCircleOutlineIcon />}
                 href={selectedProject?.demo || "#"}
                 target="_blank"
                 disabled={!selectedProject?.demo}
-              ></Button>
+              >
+                Démo
+              </Button>
             </DialogActions>
           </Dialog>
         )}
       </AnimatePresence>
 
-      {/* Modal pour vidéo */}
       <Dialog
         open={videoOpen}
         onClose={() => setVideoOpen(false)}
@@ -330,7 +386,7 @@ export default function Projects({ darkMode = false }) {
           </IconButton>
         </DialogTitle>
         <DialogContent sx={{ p: 0 }}>
-          <Box sx={{ position: "relative", pt: "56.25%" /* 16:9 ratio */ }}>
+          <Box sx={{ position: "relative", pt: "56.25%" }}>
             <iframe
               src="https://www.youtube.com/embed/a8MxSz4mvcg?si=_ZVj2YE-isXW9pQH"
               title="Demo Gestion des Poubelles"

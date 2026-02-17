@@ -114,19 +114,6 @@ function Portfolio({ darkMode }) {
 
         {/* Section boutons + logos */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          {/* LinkedIn à gauche */}
-          <IconButton
-            href="https://linkedin.com/in/claudiana-rajoma-07505731b" // <-- change le lien ici
-            target="_blank"
-            sx={{
-               fontSize: 28, // taille réduite
-               background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)",
-               WebkitBackgroundClip: "text",
-               WebkitTextFillColor: "transparent",
-           }}
-          >
-            <LinkedInIcon fontSize="inherit" />
-          </IconButton>
 
           {/* Bouton télécharger CV */}
           <Button
@@ -145,19 +132,6 @@ function Portfolio({ darkMode }) {
             Télécharger mon CV ici
           </Button>
 
-          {/* GitHub à droite */}
-          <IconButton
-            href="https://github.com/Claudiana27"
-            target="_blank"
-            sx={{
-              fontSize: 28, // taille réduite
-              background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            <GitHubIcon fontSize="inherit" />
-          </IconButton>
         </Box>
       </Box>
 

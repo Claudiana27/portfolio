@@ -2,8 +2,22 @@ import React, { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame, Canvas } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
-import { Container, Typography, Box, TextField, Button, useMediaQuery, Snackbar, Alert } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Button,
+  useMediaQuery,
+  Snackbar,
+  Alert,
+  IconButton,
+} from "@mui/material";
 import emailjs from "@emailjs/browser";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import EmailIcon from "@mui/icons-material/Email";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 function FloatingParticles({ count = 1500, darkMode }) {
   const pointsRef = useRef();
@@ -51,11 +65,10 @@ function Contact({ darkMode }) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Form state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -68,12 +81,10 @@ function Contact({ darkMode }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -84,27 +95,32 @@ function Contact({ darkMode }) {
       return;
     }
 
-    emailjs.send(
-      "service_20l5otv",       // ton Service ID
-      "template_1p99z2p",      // ton Template ID
-      {
-        from_name: formData.name,
-        reply_to: formData.email,
-        message: formData.message,
-        to_email: "nomenjanaharydiana27@gmail.com"
-      },
-      "8XCQxbDU7QhR0jZNb"      // Public Key
-    ).then((result) => {
-      setSnackbarMessage("Message envoyé avec succès !");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
-      setFormData({ name: "", email: "", message: "" }); // reset form
-    }, (error) => {
-      setSnackbarMessage("Erreur lors de l'envoi. Réessayez.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-      console.error(error.text);
-    });
+    emailjs
+      .send(
+        "service_20l5otv",
+        "template_1p99z2p",
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          message: formData.message,
+          to_email: "nomenjanaharydiana27@gmail.com",
+        },
+        "8XCQxbDU7QhR0jZNb"
+      )
+      .then(
+        () => {
+          setSnackbarMessage("Message envoyé avec succès !");
+          setSnackbarSeverity("success");
+          setSnackbarOpen(true);
+          setFormData({ name: "", email: "", message: "" });
+        },
+        (error) => {
+          setSnackbarMessage("Erreur lors de l'envoi. Réessayez.");
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
+          console.error(error.text);
+        }
+      );
   };
 
   return (
@@ -127,7 +143,6 @@ function Contact({ darkMode }) {
         overflowX: "hidden",
       }}
     >
-      {/* Particules en fond */}
       <Box
         sx={{
           position: "absolute",
@@ -150,7 +165,6 @@ function Contact({ darkMode }) {
         </Canvas>
       </Box>
 
-      {/* Contenu principal */}
       <Box sx={{ position: "relative", zIndex: 1, textAlign: "center", px: { xs: 2, sm: 4, md: 0 } }}>
         <Typography
           variant={isMobile ? "h4" : "h3"}
@@ -159,7 +173,7 @@ function Contact({ darkMode }) {
           gutterBottom
           color={darkMode ? "#fff" : "text.primary"}
         >
-          Contact
+          CONTACT
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: isMobile ? "100%" : 600, mx: "auto", mt: 4 }}>
@@ -170,8 +184,8 @@ function Contact({ darkMode }) {
             onChange={handleChange}
             fullWidth
             sx={{ mb: 2 }}
-            InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
-            InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
+            InputLabelProps={{ style: { color: darkMode ? "white" : "black" } }}
+            InputProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
           />
           <TextField
             label="Email"
@@ -180,8 +194,8 @@ function Contact({ darkMode }) {
             onChange={handleChange}
             fullWidth
             sx={{ mb: 2 }}
-            InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
-            InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
+            InputLabelProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
+            InputProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
           />
           <TextField
             label="Message"
@@ -192,8 +206,8 @@ function Contact({ darkMode }) {
             rows={isMobile ? 3 : 4}
             fullWidth
             sx={{ mb: 2 }}
-            InputLabelProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
-            InputProps={{ style: { color: darkMode ? "#fff" : "inherit" } }}
+            InputLabelProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
+            InputProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
           />
           <Button
             type="submit"
@@ -201,7 +215,7 @@ function Contact({ darkMode }) {
             sx={{
               width: isMobile ? "30%" : "auto",
               fontSize: "0.7rem",
-              background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)"
+              background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)",
             }}
           >
             Envoyer
@@ -209,7 +223,106 @@ function Contact({ darkMode }) {
         </Box>
       </Box>
 
-      {/* Texte copyright */}
+      <Box sx={{ position: "relative", zIndex: 1, mt: 10, mb: 10, width: "100%" }}>
+        <Typography
+          variant="body2"
+          sx={{
+            textAlign: "center",
+            mb: 2,
+            color: darkMode ? "#cfcfcf" : "text.secondary",
+            fontWeight: 600,
+            letterSpacing: 0.3,
+          }}
+        >
+          Retrouvez-moi sur
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: { xs: 2, md: 3 },
+            width: "100%",
+          }}
+        >
+          <IconButton
+            aria-label="LinkedIn"
+            href="https://linkedin.com/in/claudiana-rajoma-07505731b"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: darkMode ? "#ffffff" : "#0f172a",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              "&:hover": {
+                transform: "scale(1.08)",
+                boxShadow: darkMode
+                  ? "0 0 14px rgba(255,255,255,0.25)"
+                  : "0 0 12px rgba(15,23,42,0.18)",
+              },
+            }}
+          >
+            <LinkedInIcon sx={{ fontSize: { md: 27, xs: 22 } }} />
+          </IconButton>
+
+          <IconButton
+            aria-label="GitHub"
+            href="https://github.com/Claudiana27"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: darkMode ? "#ffffff" : "#0f172a",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              "&:hover": {
+                transform: "scale(1.08)",
+                boxShadow: darkMode
+                  ? "0 0 14px rgba(255,255,255,0.25)"
+                  : "0 0 12px rgba(15,23,42,0.18)",
+              },
+            }}
+          >
+            <GitHubIcon sx={{ fontSize: { md: 27, xs: 22 } }} />
+          </IconButton>
+
+          <IconButton
+            aria-label="Email"
+            href="mailto:nomenjanaharydiana27@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: darkMode ? "#ffffff" : "#0f172a",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              "&:hover": {
+                transform: "scale(1.08)",
+                boxShadow: darkMode
+                  ? "0 0 14px rgba(255,255,255,0.25)"
+                  : "0 0 12px rgba(15,23,42,0.18)",
+              },
+            }}
+          >
+            <EmailIcon sx={{ fontSize: { md: 27, xs: 22 } }} />
+          </IconButton>
+
+          <IconButton
+            aria-label="WhatsApp"
+            href="https://wa.me/261345623302"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: darkMode ? "#ffffff" : "#0f172a",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              "&:hover": {
+                transform: "scale(1.08)",
+                boxShadow: darkMode
+                  ? "0 0 14px rgba(255,255,255,0.25)"
+                  : "0 0 12px rgba(15,23,42,0.18)",
+              },
+            }}
+          >
+            <WhatsAppIcon sx={{ fontSize: { md: 27, xs: 22 } }} />
+          </IconButton>
+        </Box>
+      </Box>
+
       <Box
         sx={{
           position: "absolute",
@@ -219,19 +332,22 @@ function Contact({ darkMode }) {
           zIndex: 1,
         }}
       >
-        <Typography variant="body2" color={darkMode ? "#ccc" : "text.secondary"} sx={{fontSize: "12px", ml:{md: "-10%"}}}>
+        <Typography
+          variant="body2"
+          color={darkMode ? "#ccc" : "text.secondary"}
+          sx={{ fontSize: "12px", ml: { md: "-10%" } }}
+        >
           © {new Date().getFullYear()} Diana. Tous droits réservés.
         </Typography>
       </Box>
 
-      {/* Snackbar pour feedback */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={4000}
         onClose={() => setSnackbarOpen(false)}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert severity={snackbarSeverity} onClose={() => setSnackbarOpen(false)} sx={{ width: '100%' }}>
+        <Alert severity={snackbarSeverity} onClose={() => setSnackbarOpen(false)} sx={{ width: "100%" }}>
           {snackbarMessage}
         </Alert>
       </Snackbar>
