@@ -117,7 +117,7 @@ export default function Projects({ darkMode = false }) {
       maxWidth={false}
       disableGutters
       sx={{
-        width: { xs: "86.5vw", md: "90%" },
+        width: { xs: "81vw", md: "90%" },
         px: { xs: 0, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
@@ -269,7 +269,7 @@ export default function Projects({ darkMode = false }) {
                     sx={{
                       mb: 1.5,
                       textAlign: "left",
-                      color: darkMode ? "#e4e4e7" : "text.primary",
+                      color:"text.primary",
                       lineHeight: 1.6,
                     }}
                   >
@@ -283,7 +283,7 @@ export default function Projects({ darkMode = false }) {
                         sx={{
                           mb: 1,
                           textAlign: "left",
-                          color: darkMode ? "#d4d4d8" : "text.secondary",
+                          color: "text.secondary",
                         }}
                       >
                         Stack technique
@@ -298,7 +298,7 @@ export default function Projects({ darkMode = false }) {
                               bgcolor: darkMode
                                 ? "rgba(255,255,255,0.08)"
                                 : "rgba(15,23,42,0.08)",
-                              color: darkMode ? "#f5f5f5" : "#1f2937",
+                              color:"#1f2937",
                               fontWeight: 600,
                             }}
                           />
@@ -312,7 +312,7 @@ export default function Projects({ darkMode = false }) {
                       variant="body2"
                       sx={{
                         textAlign: "left",
-                        color: darkMode ? "#d4d4d8" : "text.secondary",
+                        color:"text.secondary",
                         fontStyle: "italic",
                       }}
                     >
