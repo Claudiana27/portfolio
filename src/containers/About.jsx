@@ -3,75 +3,226 @@ import { Container, Typography, Box, useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
 import SkillCircle from "../components/SkillCircle";
 
-const items = [
-  {
-    title: "Cours d’anglais – Centre MSEFF",
-    subtitle: "Formation certifiée en communication orale et professionnelle",
-  },
-  {
-    title: "Actuellement en Master 1 en Informatique",
-    subtitle: "A l'Ecole Nationale d'Informatique | Université de Fianarantsoa",
-  },
-  {
-    title: "Diplôme de Licence professionnel en Informatique",
-    subtitle: "A l'Ecole Nationale d'Informatique | Université de Fianarantsoa",
-  },
-  {
-    title: "Baccalauréat série C",
-    subtitle: "Lycée Saint Joseph de Cluny Ambositra",
-  },
-];
+const educationItems = {
+  fr: [
+    {
+      title: "Cours d’anglais – Centre MSEFF",
+      subtitle: "Formation certifiée en communication orale et professionnelle",
+    },
+    {
+      title: "Actuellement en Master 1 en Informatique",
+      subtitle: "A l'Ecole Nationale d'Informatique | Université de Fianarantsoa",
+    },
+    {
+      title: "Diplôme de Licence professionnel en Informatique",
+      subtitle: "A l'Ecole Nationale d'Informatique | Université de Fianarantsoa",
+    },
+    {
+      title: "Baccalauréat série C",
+      subtitle: "Lycée Saint Joseph de Cluny Ambositra",
+    },
+  ],
+  en: [
+    {
+      title: "English Course – MSEFF Center",
+      subtitle: "Certified training in oral and professional communication",
+    },
+    {
+      title: "Currently pursuing Master 1 in Computer Science",
+      subtitle: "National School of Computer Science | University of Fianarantsoa",
+    },
+    {
+      title: "Professional Bachelor's Degree in Computer Science",
+      subtitle: "National School of Computer Science | University of Fianarantsoa",
+    },
+    {
+      title: "High School Diploma (Series C)",
+      subtitle: "Saint Joseph de Cluny High School, Ambositra",
+    },
+  ],
+};
 
-const skillCategories = [
-  {
-    category: "Langages",
-    skills: [
-      { value: 90, label: "HTML / CSS" },
-      { value: 85, label: "JavaScript" },
-      { value: 70, label: "PHP" },
-      { value: 70, label: "Java" },
-    ],
-  },
-  {
-    category: "Frameworks & Librairies",
-    skills: [
-      { value: 90, label: "React.js" },
-      { value: 70, label: "React Native" },
-      { value: 50, label: "Next.js" },
-      { value: 80, label: "Node.js" },
-      { value: 75, label: "Express.js" },
-      { value: 75, label: "Bootstrap" },
-      { value: 80, label: "Tailwind CSS" },
-      { value: 70, label: "Three.js" },
-    ],
-  },
-  {
-    category: "Versionnage",
-    skills: [
-      { value: 80, label: "Git" },
-      { value: 85, label: "GitHub" },
-    ],
-  },
-  {
-    category: "SGBD",
-    skills: [
-      { value: 85, label: "MySQL" },
-      { value: 65, label: "PostgreSQL" },
-      { value: 70, label: "SQLite" },
-    ],
-  },
-  {
-    category: "Déploiement",
-    description: [
-      "Frontend: Vercel, GitHub",
-      "Backend: Render, Railway",
-      "Mobile: EAS (Expo)",
-    ],
-  },
-];
+const skillsByLang = {
+  fr: [
+    {
+      id: "languages",
+      category: "Langages",
+      skills: [
+        { value: 90, label: "HTML / CSS" },
+        { value: 85, label: "JavaScript" },
+        { value: 70, label: "PHP" },
+        { value: 70, label: "Java" },
+      ],
+    },
+    {
+      id: "frameworks",
+      category: "Frameworks & Librairies",
+      skills: [
+        { value: 90, label: "React.js" },
+        { value: 70, label: "React Native" },
+        { value: 50, label: "Next.js" },
+        { value: 80, label: "Node.js" },
+        { value: 75, label: "Express.js" },
+        { value: 75, label: "Bootstrap" },
+        { value: 80, label: "Tailwind CSS" },
+        { value: 70, label: "Three.js" },
+      ],
+    },
+    {
+      id: "versioning",
+      category: "Versionnage",
+      skills: [
+        { value: 80, label: "Git" },
+        { value: 85, label: "GitHub" },
+      ],
+    },
+    {
+      id: "db",
+      category: "SGBD",
+      skills: [
+        { value: 85, label: "MySQL" },
+        { value: 65, label: "PostgreSQL" },
+        { value: 70, label: "SQLite" },
+      ],
+    },
+    {
+      id: "deploy",
+      category: "Déploiement",
+      description: [
+        "Frontend: Vercel, GitHub",
+        "Backend: Render, Railway",
+        "Mobile: EAS (Expo)",
+      ],
+    },
+  ],
+  en: [
+    {
+      id: "languages",
+      category: "Languages",
+      skills: [
+        { value: 90, label: "HTML / CSS" },
+        { value: 85, label: "JavaScript" },
+        { value: 70, label: "PHP" },
+        { value: 70, label: "Java" },
+      ],
+    },
+    {
+      id: "frameworks",
+      category: "Frameworks & Libraries",
+      skills: [
+        { value: 90, label: "React.js" },
+        { value: 70, label: "React Native" },
+        { value: 50, label: "Next.js" },
+        { value: 80, label: "Node.js" },
+        { value: 75, label: "Express.js" },
+        { value: 75, label: "Bootstrap" },
+        { value: 80, label: "Tailwind CSS" },
+        { value: 70, label: "Three.js" },
+      ],
+    },
+    {
+      id: "versioning",
+      category: "Version Control",
+      skills: [
+        { value: 80, label: "Git" },
+        { value: 85, label: "GitHub" },
+      ],
+    },
+    {
+      id: "db",
+      category: "Databases",
+      skills: [
+        { value: 85, label: "MySQL" },
+        { value: 65, label: "PostgreSQL" },
+        { value: 70, label: "SQLite" },
+      ],
+    },
+    {
+      id: "deploy",
+      category: "Deployment",
+      description: [
+        "Frontend: Vercel, GitHub",
+        "Backend: Render, Railway",
+        "Mobile: EAS (Expo)",
+      ],
+    },
+  ],
+};
 
-function About({ darkMode }) {
+const experiences = {
+  fr: [
+    {
+      role: "Développeuse Web Stagiaire",
+      org: "Direction Générale des Impôts • 2023",
+      desc: (
+        <>
+          Conception et réalisation d’une application web pour le paiement de l’IS. Mise en place
+          du <span translate="no">frontend</span> en React et développement d’API <span translate="no">backend</span> en Node.js.
+        </>
+      ),
+      tech: "HTML/CSS, PHP, MySQL",
+    },
+    {
+      role: "Développeuse Web Stagiaire",
+      org: "ONG Bel Avenir • 2024",
+      desc: "Conception et réalisation d’une application web pour le suivi de paiement et la génération des fiches de paie.",
+      tech: "React, Node.js, Express, MySQL",
+    },
+    {
+      role: "Développeuse Web Stagiaire",
+      org: "Ecole Nationale d'Informatique • 2025",
+      desc: "Conception et réalisation d’une application web et mobile pour la gestion des poubelles dans la ville de Fianarantsoa.",
+      tech: "React, React Native, Node.js, Express, MySQL",
+    },
+  ],
+  en: [
+    {
+      role: "Web Developer Intern",
+      org: "General Tax Directorate • 2023",
+      desc: (
+        <>
+          Design and development of a web application for corporate tax payment. Built the React <span translate="no">frontend</span> and Node.js API <span translate="no">backend</span>.
+        </>
+      ),
+      tech: "HTML/CSS, PHP, MySQL",
+    },
+    {
+      role: "Web Developer Intern",
+      org: "Bel Avenir NGO • 2024",
+      desc: "Design and development of a web application for payment tracking and payroll generation.",
+      tech: "React, Node.js, Express, MySQL",
+    },
+    {
+      role: "Web Developer Intern",
+      org: "National School of Computer Science • 2025",
+      desc: "Design and development of a web and mobile application for waste-bin management in Fianarantsoa.",
+      tech: "React, React Native, Node.js, Express, MySQL",
+    },
+  ],
+};
+
+function About({ darkMode, lang = "fr" }) {
   const isMobile = useMediaQuery("(max-width:600px)");
+  const t = {
+    fr: {
+      title: "A PROPOS DE MOI",
+      education: "Formations & Diplômes",
+      skills: "Compétences techniques",
+      exp: "Stages et Expériences Professionnelles",
+      tech: "Technologies",
+    },
+    en: {
+      title: "ABOUT ME",
+      education: "Education & Degrees",
+      skills: "Technical Skills",
+      exp: "Internships & Professional Experience",
+      tech: "Technologies",
+    },
+  }[lang];
+
+  const items = educationItems[lang] || educationItems.fr;
+  const skillCategories = skillsByLang[lang] || skillsByLang.fr;
+  const expItems = experiences[lang] || experiences.fr;
 
   return (
     <Container
@@ -99,7 +250,7 @@ function About({ darkMode }) {
           color: darkMode ? "#cccccc" : "text.primary",
         }}
       >
-        A PROPOS DE MOI
+        {t.title}
       </Typography>
 
       <Box sx={{ maxWidth: 1200, mx: "auto", mt: { xs: 4, md: 6 } }}>
@@ -111,7 +262,7 @@ function About({ darkMode }) {
           textAlign="center"
           sx={{ fontSize: { md: 29 } }}
         >
-          Formations & Diplômes
+          {t.education}
         </Typography>
 
         <Box
@@ -167,10 +318,7 @@ function About({ darkMode }) {
                   >
                     {item.title}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color={darkMode ? "#cccccc" : "text.secondary"}
-                  >
+                  <Typography variant="body2" color={darkMode ? "#cccccc" : "text.secondary"}>
                     {item.subtitle}
                   </Typography>
                 </Box>
@@ -190,13 +338,13 @@ function About({ darkMode }) {
             fontSize: { md: 29 },
           }}
         >
-          Compétences techniques
+          {t.skills}
         </Typography>
 
         <Box sx={{ mt: 6 }}>
           {skillCategories.map((group) => (
             <Box
-              key={group.category}
+              key={group.id}
               sx={{
                 mb: 5,
                 p: { xs: 2, md: 3 },
@@ -254,23 +402,11 @@ function About({ darkMode }) {
                             : "1px solid rgba(15,23,42,0.1)",
                         }}
                       >
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            fontWeight: 700,
-                            color: darkMode ? "#ffffff" : "#111827",
-                          }}
-                        >
-                          {label}:
+                        <Typography variant="body2" sx={{ fontWeight: 700, color: darkMode ? "#fff" : "#111827" }}>
+                          <span translate="no">{label}</span>:
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            color: darkMode ? "#d5d5d5" : "#4b5563",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {value}
+                        <Typography variant="body2" sx={{ color: darkMode ? "#d5d5d5" : "#4b5563", fontWeight: 500 }}>
+                          <span translate="no">{value}</span>
                         </Typography>
                       </Box>
                     );
@@ -292,30 +428,14 @@ function About({ darkMode }) {
                       key={skill.label}
                       sx={{
                         flex: {
-                          xs:
-                            group.category === "Langages" ||
-                            group.category === "Frameworks & Librairies"
-                              ? "0 0 50%"
-                              : "0 0 33.33%",
+                          xs: group.id === "languages" || group.id === "frameworks" ? "0 0 50%" : "0 0 33.33%",
                           sm: "0 0 50%",
-                          md:
-                            group.category === "Langages" ||
-                            group.category === "Frameworks & Librairies"
-                              ? "0 0 50%"
-                              : "0 0 33.33%",
+                          md: group.id === "languages" || group.id === "frameworks" ? "0 0 50%" : "0 0 33.33%",
                         },
                         maxWidth: {
-                          xs:
-                            group.category === "Langages" ||
-                            group.category === "Frameworks & Librairies"
-                              ? "50%"
-                              : "33.33%",
+                          xs: group.id === "languages" || group.id === "frameworks" ? "50%" : "33.33%",
                           sm: "50%",
-                          md:
-                            group.category === "Langages" ||
-                            group.category === "Frameworks & Librairies"
-                              ? "50%"
-                              : "33.33%",
+                          md: group.id === "languages" || group.id === "frameworks" ? "50%" : "33.33%",
                         },
                         display: "flex",
                         justifyContent: "center",
@@ -326,12 +446,14 @@ function About({ darkMode }) {
                         },
                       }}
                     >
-                      <SkillCircle
-                        value={skill.value}
-                        label={skill.label}
-                        color="linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)"
-                        size={isMobile ? 80 : 100}
-                      />
+                      <div translate="no">
+                        <SkillCircle
+                          value={skill.value}
+                          label={skill.label}
+                          color="linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)"
+                          size={isMobile ? 80 : 100}
+                        />
+                      </div>
                     </Box>
                   ))}
                 </Box>
@@ -348,135 +470,50 @@ function About({ darkMode }) {
           textAlign="center"
           sx={{ fontSize: { md: 29 }, mt: 8 }}
         >
-          Stages et Expériences Professionnelles
+          {t.exp}
         </Typography>
 
         <Box sx={{ mt: 5, px: 3 }}>
-          <Box
-            sx={{
-              mb: 4,
-              p: 3,
-              borderRadius: 3,
-              backgroundColor: darkMode ? "#1e1e1e" : "#f9f9f9",
-              boxShadow: 3,
-              transition: "0.3s",
-              "&:hover": { transform: "scale(1.02)" },
-            }}
-          >
-            <Typography
-              variant="h6"
-              fontWeight="bold"
+          {expItems.map((exp, idx) => (
+            <Box
+              key={idx}
               sx={{
-                color: darkMode ? "#90caf9" : "#1e3a8a",
+                mb: 4,
+                p: 3,
+                borderRadius: 3,
+                backgroundColor: darkMode ? "#1e1e1e" : "#f9f9f9",
+                boxShadow: 3,
                 transition: "0.3s",
-                "&:hover": {
-                  color: "#6a0dad",
-                },
+                "&:hover": { transform: "scale(1.02)" },
               }}
             >
-              Développeuse Web Stagiaire
-            </Typography>
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                sx={{
+                  color: darkMode ? "#90caf9" : "#1e3a8a",
+                  transition: "0.3s",
+                  "&:hover": {
+                    color: "#6a0dad",
+                  },
+                }}
+              >
+                {exp.role}
+              </Typography>
 
-            <Typography variant="subtitle2" color={darkMode ? "white" : "black"}>
-              Direction Générale des Impôts • 2023
-            </Typography>
+              <Typography variant="subtitle2" color={darkMode ? "white" : "black"}>
+                {exp.org}
+              </Typography>
 
-            <Typography color={darkMode ? "white" : "black"} sx={{ mt: 1 }}>
-              Conception et réalisation d’une application web pour le paiement de l’IS.
-              Mise en place du frontend en React et développement d’API backend en Node.js.
-            </Typography>
+              <Typography color={darkMode ? "white" : "black"} sx={{ mt: 1 }}>
+                {exp.desc}
+              </Typography>
 
-            <Typography
-              color={darkMode ? "white" : "black"}
-              sx={{ mt: 1, fontStyle: "italic", fontSize: 14 }}
-            >
-              <b>Technologies :</b> HTML/CSS, Php, MySQL
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              mb: 4,
-              p: 3,
-              borderRadius: 3,
-              backgroundColor: darkMode ? "#1e1e1e" : "#f9f9f9",
-              boxShadow: 3,
-              transition: "0.3s",
-              "&:hover": { transform: "scale(1.02)" },
-            }}
-          >
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              sx={{
-                color: darkMode ? "#90caf9" : "#1e3a8a",
-                transition: "0.3s",
-                "&:hover": {
-                  color: "#6a0dad",
-                },
-              }}
-            >
-              Développeuse Web Stagiaire
-            </Typography>
-
-            <Typography variant="subtitle2" color={darkMode ? "white" : "black"}>
-              ONG Bel Avenir • 2024
-            </Typography>
-
-            <Typography color={darkMode ? "white" : "black"} sx={{ mt: 1 }}>
-              Conception et réalisation d’une application web pour le suivi de paiement et la
-              generation des fiches de paie.
-            </Typography>
-
-            <Typography
-              color={darkMode ? "white" : "black"}
-              sx={{ mt: 1, fontStyle: "italic", fontSize: 14 }}
-            >
-              <b>Technologies :</b> React, Node.js, Express, MySQL
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              mb: 4,
-              p: 3,
-              borderRadius: 3,
-              backgroundColor: darkMode ? "#1e1e1e" : "#f9f9f9",
-              boxShadow: 3,
-              transition: "0.3s",
-              "&:hover": { transform: "scale(1.02)" },
-            }}
-          >
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              sx={{
-                color: darkMode ? "#90caf9" : "#1e3a8a",
-                transition: "0.3s",
-                "&:hover": {
-                  color: "#6a0dad",
-                },
-              }}
-            >
-              Développeuse Web Stagiaire
-            </Typography>
-
-            <Typography variant="subtitle2" color={darkMode ? "white" : "black"}>
-              <b>E</b>cole <b>N</b>ationale d'<b>I</b>nformatique • 2025
-            </Typography>
-
-            <Typography color={darkMode ? "white" : "black"} sx={{ mt: 1 }}>
-              Conception et réalisation d’une application web et mobile pour la gestion des
-              poubelles dans la ville de Fianarantsoa.
-            </Typography>
-
-            <Typography
-              color={darkMode ? "white" : "black"}
-              sx={{ mt: 1, fontStyle: "italic", fontSize: 14 }}
-            >
-              <b>Technologies :</b> React, React Native, Node.js, Express, MySQL
-            </Typography>
-          </Box>
+              <Typography color={darkMode ? "white" : "black"} sx={{ mt: 1, fontStyle: "italic", fontSize: 14 }}>
+                <b>{t.tech} :</b> <span translate="no">{exp.tech}</span>
+              </Typography>
+            </Box>
+          ))}
         </Box>
       </Box>
     </Container>

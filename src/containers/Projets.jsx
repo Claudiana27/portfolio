@@ -35,8 +35,10 @@ import scanner from "../assets/scanner.png";
 const projects = [
   {
     title: "Portfolio Diana",
-    description:
-      "Portfolio interactif présentant mes projets, mes compétences et mon parcours en tant que développeuse web,développé avec React, intégrant des animations 3D, une interface responsive et une section de contact entièrement fonctionnelle.",
+    description: {
+      fr: "Portfolio interactif présentant mes projets, mes compétences et mon parcours en tant que développeuse web, développé avec React, intégrant des animations 3D, une interface responsive et une section de contact entièrement fonctionnelle.",
+      en: "Interactive portfolio showcasing my projects, skills, and journey as a web developer. Built with React, including 3D animations, a responsive UI, and a fully functional contact section.",
+    },
     images: [accueil, mobile1, mobile2, pc, competence],
     github: "https://github.com/Claudiana27/portfolio",
     demo: "https://diana27-portfolio.vercel.app/",
@@ -44,9 +46,14 @@ const projects = [
     deployment: "Frontend: Vercel | Versioning: GitHub",
   },
   {
-    title: "Application pour la gestion des poubelles dans la ville de Fianarantsoa",
-    description:
-      "Application complète destinée à améliorer la gestion des déchets dans la ville de Fianarantsoa.Elle comprend une application mobile pour les citoyens, développée avec React Native, permettant de signaler les poubelles pleines ou endommagées avec géolocalisation.Une interface Web pour les agents municipaux, réalisée avec React, offre un tableau de bord interactif pour consulter les alertes, suivre les interventions et visualiser les points de collecte sur carte.Le backend est construit avec Node.js / Express, exposant une API REST sécurisée qui gère les signalements, les utilisateurs et les statuts d’intervention.Les données sont stockées dans une base MySQL structurée pour assurer rapidité, fiabilité et traçabilité.Ce projet a pour objectif de faciliter la communication entre les citoyens et les services de voirie, d’optimiser la collecte des déchets et d’améliorer la propreté urbaine grâce à une solution moderne et intuitive",
+    title: {
+      fr: "Application pour la gestion des poubelles dans la ville de Fianarantsoa",
+      en: "Waste-bin management application for the city of Fianarantsoa",
+    },
+    description: {
+      fr: "Application complète destinée à améliorer la gestion des déchets dans la ville de Fianarantsoa. Elle comprend une application mobile pour les citoyens, développée avec React Native, permettant de signaler les poubelles pleines ou endommagées avec géolocalisation. Une interface web pour les agents municipaux, réalisée avec React, offre un tableau de bord interactif pour consulter les alertes et suivre les interventions. Le backend est construit avec Node.js / Express avec API REST sécurisée.",
+      en: "A full solution designed to improve waste management in Fianarantsoa. It includes a React Native mobile app for citizens to report full or damaged bins with geolocation. A React web dashboard helps municipal agents monitor alerts and interventions. The backend is built with Node.js / Express and a secure REST API.",
+    },
     images: [PC1, form, diagramme, carte, signal],
     github: "https://github.com/Claudiana27/gestion-poubelles",
     demo: "https://www.youtube.com/embed/a8MxSz4mvcg?si=_ZVj2YE-isXW9pQH",
@@ -54,9 +61,14 @@ const projects = [
     deployment: "Backend/DB: Render, Railway | Mobile: EAS (Expo)",
   },
   {
-    title: "Scanner de port TCP ouvert",
-    description:
-      "Ce projet est un scanner de ports TCP inspiré de Nmap, mais en version simplifiée. L’application permet de scanner une adresse IP ou un hôte pour détecter uniquement les ports TCP ouverts, et d’afficher en temps réel les services correspondants (HTTP, FTP, SSH, etc.).Le backend en Flask réalise un scan multi-thread rapide, et envoie les résultats en continu grâce aux Server-Sent Events (SSE). Le frontend en React + Material UI offre une interface moderne permettant de suivre le scan en direct.C’est un outil léger, accessible depuis le web, et conçu pour remplir le rôle de Nmap mais en se concentrant uniquement sur la détection des ports TCP ouverts.",
+    title: {
+      fr: "Scanner de port TCP ouvert",
+      en: "Open TCP Port Scanner",
+    },
+    description: {
+      fr: "Ce projet est un scanner de ports TCP inspiré de Nmap en version simplifiée. L’application scanne une adresse IP pour détecter uniquement les ports TCP ouverts. Le backend Flask réalise un scan multi-thread rapide et envoie les résultats en continu via SSE. Le frontend React + Material UI permet de suivre le scan en direct.",
+      en: "This project is a simplified Nmap-inspired TCP port scanner. It scans an IP/host to detect open TCP ports only. The Flask backend performs fast multi-threaded scans and streams live results with SSE. The React + Material UI frontend displays scan progress in real time.",
+    },
     images: [front, journal, scanner],
     github: "https://github.com/Claudiana27/Scanner-port-TCP",
     demo: "https://scanner-port-tcp.vercel.app/",
@@ -65,7 +77,7 @@ const projects = [
   },
 ];
 
-export default function Projects({ darkMode = false }) {
+export default function Projects({ darkMode = false, lang = "fr" }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(() =>
     projects.map(() => 0)
   );
@@ -76,6 +88,27 @@ export default function Projects({ darkMode = false }) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const controls = useAnimation();
   const scrollRef = useRef(null);
+
+  const t = {
+    fr: {
+      title: "PROJETS",
+      stack: "Stack technique",
+      deploy: "Déploiement",
+      watchVideo: "Voir la vidéo",
+      code: "Code",
+      demo: "Démo",
+      trashDemoTitle: "App Gestion des Poubelles",
+    },
+    en: {
+      title: "PROJECTS",
+      stack: "Tech stack",
+      deploy: "Deployment",
+      watchVideo: "Watch video",
+      code: "Code",
+      demo: "Demo",
+      trashDemoTitle: "Waste Management App",
+    },
+  }[lang];
 
   useEffect(() => setMounted(true), []);
 
@@ -111,13 +144,19 @@ export default function Projects({ darkMode = false }) {
     return () => controls.stop();
   }, [mounted, paused, controls, isMobile]);
 
+  const projectTitle = (project) =>
+    typeof project.title === "string" ? project.title : project.title?.[lang] || project.title?.fr;
+
+  const projectDescription = (project) =>
+    project.description?.[lang] || project.description?.fr || "";
+
   return (
     <Container
       id="projets"
       maxWidth={false}
       disableGutters
       sx={{
-        width: { xs: "81vw", md: "90%" },
+        width: { xs: "86.5vw", md: "90%" },
         px: { xs: 0, sm: 3, md: 6 },
         display: "flex",
         flexDirection: "column",
@@ -140,7 +179,7 @@ export default function Projects({ darkMode = false }) {
         color={darkMode ? "#fff" : "text.primary"}
         sx={{ textAlign: "center", fontSize: { md: 37 }, mt: { xs: 4 } }}
       >
-        PROJETS
+        {t.title}
       </Typography>
 
       <Box
@@ -175,7 +214,7 @@ export default function Projects({ darkMode = false }) {
 
             return (
               <Card
-                key={`${project.title}-${idx}`}
+                key={`${projectTitle(project)}-${idx}`}
                 sx={{
                   width: isMobile ? 140 : 220,
                   height: isMobile ? 140 : 200,
@@ -196,7 +235,7 @@ export default function Projects({ darkMode = false }) {
                 <CardMedia
                   component="img"
                   image={project.images?.[imgIndex] || ""}
-                  alt={project.title || ""}
+                  alt={projectTitle(project) || ""}
                   sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
                 <Box
@@ -211,7 +250,7 @@ export default function Projects({ darkMode = false }) {
                     fontSize: isMobile ? "0.7rem" : "0.9rem",
                   }}
                 >
-                  {project.title || ""}
+                  {projectTitle(project) || ""}
                 </Box>
               </Card>
             );
@@ -226,7 +265,7 @@ export default function Projects({ darkMode = false }) {
             onClose={() => setSelectedProject(null)}
             maxWidth="sm"
             fullWidth
-            key={selectedProject.title}
+            key={projectTitle(selectedProject)}
           >
             <DialogTitle
               sx={{
@@ -235,7 +274,7 @@ export default function Projects({ darkMode = false }) {
                 justifyContent: "space-between",
               }}
             >
-              {selectedProject?.title || ""}
+              {projectTitle(selectedProject) || ""}
               <IconButton onClick={() => setSelectedProject(null)}>
                 <CloseIcon />
               </IconButton>
@@ -243,7 +282,7 @@ export default function Projects({ darkMode = false }) {
 
             <DialogContent>
               <motion.div
-                key={selectedProject.title}
+                key={projectTitle(selectedProject)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -259,7 +298,7 @@ export default function Projects({ darkMode = false }) {
                   >
                     <img
                       src={selectedProject?.images?.[0] || ""}
-                      alt={selectedProject?.title || ""}
+                      alt={projectTitle(selectedProject) || ""}
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   </Box>
@@ -269,24 +308,20 @@ export default function Projects({ darkMode = false }) {
                     sx={{
                       mb: 1.5,
                       textAlign: "left",
-                      color:"text.primary",
+                      color: "text.primary",
                       lineHeight: 1.6,
                     }}
                   >
-                    {selectedProject?.description || ""}
+                    {projectDescription(selectedProject)}
                   </Typography>
 
                   {!!selectedProject?.stack?.length && (
                     <Box sx={{ mb: 1 }}>
                       <Typography
                         variant="subtitle2"
-                        sx={{
-                          mb: 1,
-                          textAlign: "left",
-                          color: "text.secondary",
-                        }}
+                        sx={{ mb: 1, textAlign: "left", color: "text.secondary" }}
                       >
-                        Stack technique
+                        {t.stack}
                       </Typography>
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                         {selectedProject.stack.map((tech) => (
@@ -298,7 +333,7 @@ export default function Projects({ darkMode = false }) {
                               bgcolor: darkMode
                                 ? "rgba(255,255,255,0.08)"
                                 : "rgba(15,23,42,0.08)",
-                              color:"#1f2937",
+                              color: darkMode ? "#f5f5f5" : "#1f2937",
                               fontWeight: 600,
                             }}
                           />
@@ -310,13 +345,9 @@ export default function Projects({ darkMode = false }) {
                   {selectedProject?.deployment && (
                     <Typography
                       variant="body2"
-                      sx={{
-                        textAlign: "left",
-                        color:"text.secondary",
-                        fontStyle: "italic",
-                      }}
+                      sx={{ textAlign: "left", color: "text.secondary", fontStyle: "italic" }}
                     >
-                      Déploiement: {selectedProject.deployment}
+                      {t.deploy}: <span translate="no">{selectedProject.deployment}</span>
                     </Typography>
                   )}
 
@@ -328,20 +359,20 @@ export default function Projects({ darkMode = false }) {
                       >
                         <img
                           src={img || ""}
-                          alt={`${selectedProject?.title || ""}-${i}`}
+                          alt={`${projectTitle(selectedProject) || ""}-${i}`}
                           style={{ width: "100%", height: "100%", objectFit: "cover" }}
                         />
                       </Box>
                     ))}
                   </Box>
 
-                  {selectedProject.title.includes("poubelles") && (
+                  {selectedProject?.demo?.includes("youtube.com/embed") && (
                     <Button
                       startIcon={<PlayCircleOutlineIcon />}
                       onClick={() => setVideoOpen(true)}
                       sx={{ mt: 2 }}
                     >
-                      Voir la vidéo
+                      {t.watchVideo}
                     </Button>
                   )}
                 </Box>
@@ -355,7 +386,7 @@ export default function Projects({ darkMode = false }) {
                 target="_blank"
                 disabled={!selectedProject?.github}
               >
-                Code
+                {t.code}
               </Button>
               <Button
                 startIcon={<PlayCircleOutlineIcon />}
@@ -363,21 +394,16 @@ export default function Projects({ darkMode = false }) {
                 target="_blank"
                 disabled={!selectedProject?.demo}
               >
-                Démo
+                {t.demo}
               </Button>
             </DialogActions>
           </Dialog>
         )}
       </AnimatePresence>
 
-      <Dialog
-        open={videoOpen}
-        onClose={() => setVideoOpen(false)}
-        maxWidth="md"
-        fullWidth
-      >
+      <Dialog open={videoOpen} onClose={() => setVideoOpen(false)} maxWidth="md" fullWidth>
         <DialogTitle>
-          App Gestion des Poubelles
+          {t.trashDemoTitle}
           <IconButton
             onClick={() => setVideoOpen(false)}
             sx={{ position: "absolute", right: 8, top: 8 }}

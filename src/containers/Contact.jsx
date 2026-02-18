@@ -61,9 +61,35 @@ function FloatingParticles({ count = 1500, darkMode }) {
   );
 }
 
-function Contact({ darkMode }) {
+function Contact({ darkMode, lang = "fr" }) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const t = {
+    fr: {
+      title: "CONTACT",
+      name: "Nom",
+      email: "Email",
+      message: "Message",
+      send: "Envoyer",
+      follow: "Retrouvez-moi sur",
+      fillAll: "Veuillez remplir tous les champs !",
+      sent: "Message envoyé avec succès !",
+      error: "Erreur lors de l'envoi. Réessayez.",
+      rights: "Tous droits réservés.",
+    },
+    en: {
+      title: "CONTACT",
+      name: "Name",
+      email: "Email",
+      message: "Message",
+      send: "Send",
+      follow: "Find me on",
+      fillAll: "Please fill in all fields!",
+      sent: "Message sent successfully!",
+      error: "Error while sending. Please try again.",
+      rights: "All rights reserved.",
+    },
+  }[lang];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -89,7 +115,7 @@ function Contact({ darkMode }) {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
-      setSnackbarMessage("Veuillez remplir tous les champs !");
+      setSnackbarMessage(t.fillAll);
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
@@ -109,13 +135,13 @@ function Contact({ darkMode }) {
       )
       .then(
         () => {
-          setSnackbarMessage("Message envoyé avec succès !");
+          setSnackbarMessage(t.sent);
           setSnackbarSeverity("success");
           setSnackbarOpen(true);
           setFormData({ name: "", email: "", message: "" });
         },
         (error) => {
-          setSnackbarMessage("Erreur lors de l'envoi. Réessayez.");
+          setSnackbarMessage(t.error);
           setSnackbarSeverity("error");
           setSnackbarOpen(true);
           console.error(error.text);
@@ -173,12 +199,12 @@ function Contact({ darkMode }) {
           gutterBottom
           color={darkMode ? "#fff" : "text.primary"}
         >
-          CONTACT
+          {t.title}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: isMobile ? "100%" : 600, mx: "auto", mt: 4 }}>
           <TextField
-            label="Nom"
+            label={t.name}
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -188,7 +214,7 @@ function Contact({ darkMode }) {
             InputProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
           />
           <TextField
-            label="Email"
+            label={t.email}
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -198,7 +224,7 @@ function Contact({ darkMode }) {
             InputProps={{ style: { color: darkMode ? "#fff" : "#0F0F0F" } }}
           />
           <TextField
-            label="Message"
+            label={t.message}
             name="message"
             value={formData.message}
             onChange={handleChange}
@@ -218,7 +244,7 @@ function Contact({ darkMode }) {
               background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)",
             }}
           >
-            Envoyer
+            {t.send}
           </Button>
         </Box>
       </Box>
@@ -234,7 +260,7 @@ function Contact({ darkMode }) {
             letterSpacing: 0.3,
           }}
         >
-          Retrouvez-moi sur
+          {t.follow}
         </Typography>
         <Box
           sx={{
@@ -337,7 +363,7 @@ function Contact({ darkMode }) {
           color={darkMode ? "#ccc" : "text.secondary"}
           sx={{ fontSize: "12px", ml: { md: "-10%" } }}
         >
-          © {new Date().getFullYear()} Diana. Tous droits réservés.
+          © {new Date().getFullYear()} Diana. {t.rights}
         </Typography>
       </Box>
 

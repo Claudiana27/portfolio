@@ -6,9 +6,23 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import pdp from "../assets/Pdp.png";
 
-function Portfolio({ darkMode }) {
+function Portfolio({ darkMode, lang = "fr" }) {
   const textRef = useRef();
   const isMobile = useMediaQuery("(max-width:600px)");
+  const t = {
+    fr: {
+      greeting: "Salut, je suis",
+      intro:
+        "Je suis une développeuse passionnée par le web et la data. J'adore créer des interfaces modernes, intuitives et optimisées. La 3D : une passion que je transforme en expériences immersives.",
+      cv: "Télécharger mon CV ici",
+    },
+    en: {
+      greeting: "Hi, I am",
+      intro:
+        "I am a developer passionate about web and data. I love building modern, intuitive, and optimized interfaces. 3D is a passion I turn into immersive experiences.",
+      cv: "Download my CV",
+    },
+  }[lang];
 
   useEffect(() => {
     if (textRef.current && textRef.current.material) {
@@ -57,7 +71,7 @@ function Portfolio({ darkMode }) {
           gutterBottom
           sx={{ fontWeight: "bold", mt: { xs: 4 }, fontSize: { xs: 35, md: 38 } }}
         >
-          Salut, je suis
+          {t.greeting}
         </Typography>
 
         <Box
@@ -107,9 +121,7 @@ function Portfolio({ darkMode }) {
           color={darkMode ? "#cccccc" : "text.secondary"}
           sx={{ mb: 3, textAlign: "center" }}
         >
-          Je suis une développeuse passionnée par le web et la data.
-          J&apos;adore créer des interfaces modernes, intuitives et optimisées. 
-          La 3D : une passion que je transforme en expériences immersives.
+          {t.intro}
         </Typography>
 
         {/* Section boutons + logos */}
@@ -129,7 +141,7 @@ function Portfolio({ darkMode }) {
               fontSize: "0.7rem",
             }}
           >
-            Télécharger mon CV ici
+            {t.cv}
           </Button>
 
         </Box>
