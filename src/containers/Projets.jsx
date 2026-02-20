@@ -28,9 +28,6 @@ import signal from "../assets/signal.jpg";
 import diagramme from "../assets/diagramme.png";
 import form from "../assets/formulaire.png";
 import PC1 from "../assets/PC.png";
-import front from "../assets/front.png";
-import journal from "../assets/journal.png";
-import scanner from "../assets/scanner.png";
 import D0 from "../assets/Di-0.png"
 import D3 from "../assets/Di-3.png";
 import D4 from "../assets/Di-4.png";
