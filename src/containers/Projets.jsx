@@ -31,6 +31,15 @@ import PC1 from "../assets/PC.png";
 import front from "../assets/front.png";
 import journal from "../assets/journal.png";
 import scanner from "../assets/scanner.png";
+import D0 from "../assets/Di-0.png"
+import D3 from "../assets/Di-3.png";
+import D4 from "../assets/Di-4.png";
+import D5 from "../assets/Di-5.png"
+import D6 from "../assets/Di-6.png"
+import D7 from "../assets/Di-7.png"
+import D8 from "../assets/Di-8.png"
+import D9 from "../assets/Di-9.png"
+
 
 const projects = [
   {
@@ -62,17 +71,17 @@ const projects = [
   },
   {
     title: {
-      fr: "Scanner de port TCP ouvert",
-      en: "Open TCP Port Scanner",
+      fr: "Di-IU (en cours de developpement)",
+      en: "Di-UI(under development)",
     },
     description: {
-      fr: "Ce projet est un scanner de ports TCP inspiré de Nmap en version simplifiée. L’application scanne une adresse IP pour détecter uniquement les ports TCP ouverts. Le backend Flask réalise un scan multi-thread rapide et envoie les résultats en continu via SSE. Le frontend React + Material UI permet de suivre le scan en direct.",
-      en: "This project is a simplified Nmap-inspired TCP port scanner. It scans an IP/host to detect open TCP ports only. The Flask backend performs fast multi-threaded scans and streams live results with SSE. The React + Material UI frontend displays scan progress in real time.",
+      fr: "l'objectif de ce projet est de proposer un builder de composants UI frontend :l'utilisateur choisit une catégorie de bloc (navbar, hero, login, footer, etc.), un style et un framework (HTML/React/Vue/Next.js), puis peut prévisualiser, modifier, copier et exporter le code (notamment en .zip), avec une logique de sauvegarde de travaux (locale et cloud) depuis le dashboard.",
+      en: "The objective of this project is to propose a frontend UI component builder: the user selects a block category (navbar, hero, login, footer, etc.), a style, and a framework (HTML/React/Vue/Next.js), then can preview, edit, copy, and export the code (notably as a .zip file), with a logic for saving work (both locally and in the cloud) from the dashboard.",
     },
-    images: [front, journal, scanner],
-    github: "https://github.com/Claudiana27/Scanner-port-TCP",
-    demo: "https://scanner-port-tcp.vercel.app/",
-    stack: ["React", "Flask", "SSE", "Material UI"],
+    images: [D0, D3, D4, D5, D6, D7, D8, D9],
+    github: "https://github.com/Claudiana27/Di-UI",
+    demo: "https://di-ui.vercel.app/",
+    stack: ["React", "Supabase", "Material UI"],
     deployment: "Frontend: Vercel | Versioning: GitHub",
   },
 ];
