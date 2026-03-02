@@ -131,7 +131,7 @@ function Portfolio({ darkMode, lang = "fr" }) {
           <Button
             variant="contained"
             size="medium"
-            href="/CV_Diana.pdf"
+            href="/CV-Diana.pdf"
             download
             sx={{
               background: "linear-gradient(45deg, #6a0dad, #1e90ff, #ff4081)",
