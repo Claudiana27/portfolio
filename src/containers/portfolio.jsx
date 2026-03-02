@@ -13,13 +13,13 @@ function Portfolio({ darkMode, lang = "fr" }) {
     fr: {
       greeting: "Salut, je suis",
       intro:
-        "Je suis une développeuse passionnée par le web et la data. J'adore créer des interfaces modernes, intuitives et optimisées. La 3D : une passion que je transforme en expériences immersives.",
+        "Je suis développeuse web et technicienne IT. Je conçois des interfaces modernes et performantes, tout en assurant l'installation et la maintenance des infrastructures réseau et de vidéosurveillance.",
       cv: "Télécharger mon CV ici",
     },
     en: {
       greeting: "Hi, I am",
       intro:
-        "I am a developer passionate about web and data. I love building modern, intuitive, and optimized interfaces. 3D is a passion I turn into immersive experiences.",
+        "I am a web developer and IT technician. I build modern, high-performance interfaces while handling installation and maintenance of network and surveillance infrastructures.",
       cv: "Download my CV",
     },
   }[lang];

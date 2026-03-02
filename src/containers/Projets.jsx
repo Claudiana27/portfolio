@@ -335,7 +335,7 @@ export default function Projects({ darkMode = false, lang = "fr" }) {
                               bgcolor: darkMode
                                 ? "rgba(255,255,255,0.08)"
                                 : "rgba(15,23,42,0.08)",
-                              color: darkMode ? "#f5f5f5" : "#1f2937",
+                              color: "#1f2937",
                               fontWeight: 600,
                             }}
                           />

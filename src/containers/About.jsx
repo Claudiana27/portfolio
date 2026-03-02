@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Typography, Box, useMediaQuery } from "@mui/material";
-import { motion } from "framer-motion";
 import SkillCircle from "../components/SkillCircle";
 
 const educationItems = {
@@ -152,6 +151,25 @@ const skillsByLang = {
 const experiences = {
   fr: [
     {
+      role: "Support IT / Technicienne Réseaux",
+      org: "Hôtel Tombontsoa (Fianarantsoa) • En cours",
+      desc: "Installation et maintenance des caméras de surveillance, configuration et déploiement des routeurs et points d'accès, ainsi que câblage réseau.",
+      tech: "Réseaux, Vidéosurveillance, Support IT",
+    },
+      {
+      role: "Développeuse Web Stagiaire",
+      org: "Ecole Nationale d'Informatique • 2025",
+      desc: "Conception et réalisation d’une application web et mobile pour la gestion des poubelles dans la ville de Fianarantsoa.",
+      tech: "React, React Native, Node.js, Express, MySQL",
+    },
+    {
+      role: "Développeuse Web Stagiaire",
+      org: "ONG Bel Avenir • 2024",
+      desc: "Conception et réalisation d’une application web pour le suivi de paiement et la génération des fiches de paie.",
+      tech: "React, Node.js, Express, MySQL",
+    },
+  
+    {
       role: "Développeuse Web Stagiaire",
       org: "Direction Générale des Impôts • 2023",
       desc: (
@@ -162,29 +180,19 @@ const experiences = {
       ),
       tech: "HTML/CSS, PHP, MySQL",
     },
-    {
-      role: "Développeuse Web Stagiaire",
-      org: "ONG Bel Avenir • 2024",
-      desc: "Conception et réalisation d’une application web pour le suivi de paiement et la génération des fiches de paie.",
-      tech: "React, Node.js, Express, MySQL",
-    },
-    {
-      role: "Développeuse Web Stagiaire",
-      org: "Ecole Nationale d'Informatique • 2025",
-      desc: "Conception et réalisation d’une application web et mobile pour la gestion des poubelles dans la ville de Fianarantsoa.",
-      tech: "React, React Native, Node.js, Express, MySQL",
-    },
   ],
   en: [
     {
+      role: "IT Support / Network Technician",
+      org: "Tombontsoa Hotel (Fianarantsoa)• Ongoing",
+      desc: "Installation and maintenance of surveillance cameras, router and access point configuration/deployment, and network cabling.",
+      tech: "Networking, Video Surveillance, IT Support",
+    },
+    {
       role: "Web Developer Intern",
-      org: "General Tax Directorate • 2023",
-      desc: (
-        <>
-          Design and development of a web application for corporate tax payment. Built the React <span translate="no">frontend</span> and Node.js API <span translate="no">backend</span>.
-        </>
-      ),
-      tech: "HTML/CSS, PHP, MySQL",
+      org: "National School of Computer Science • 2025",
+      desc: "Design and development of a web and mobile application for waste-bin management in Fianarantsoa.",
+      tech: "React, React Native, Node.js, Express, MySQL",
     },
     {
       role: "Web Developer Intern",
@@ -194,9 +202,13 @@ const experiences = {
     },
     {
       role: "Web Developer Intern",
-      org: "National School of Computer Science • 2025",
-      desc: "Design and development of a web and mobile application for waste-bin management in Fianarantsoa.",
-      tech: "React, React Native, Node.js, Express, MySQL",
+      org: "General Tax Directorate • 2023",
+      desc: (
+        <>
+          Design and development of a web application for corporate tax payment. Built the React <span translate="no">frontend</span> and Node.js API <span translate="no">backend</span>.
+        </>
+      ),
+      tech: "HTML/CSS, PHP, MySQL",
     },
   ],
 };
