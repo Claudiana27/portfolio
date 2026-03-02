@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Typography, Box, useMediaQuery } from "@mui/material";
+import { motion } from "framer-motion";
 import SkillCircle from "../components/SkillCircle";
 
 const educationItems = {
