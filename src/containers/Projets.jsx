@@ -32,6 +32,7 @@ import D0 from "../assets/Di-0.png";
 import D5 from "../assets/Di-5.png";
 import D6 from "../assets/Di-6.png";
 import D9 from "../assets/Di-9.png";
+import diaryLock from "../assets/diary-lock.svg";
 
 
 const projects = [
@@ -76,6 +77,18 @@ const projects = [
     demo: "https://di-ui.vercel.app/",
     stack: ["React", "Supabase", "Material UI"],
     deployment: "Frontend: Vercel | Versioning: GitHub",
+  },
+  {
+    title: "DiaryApp",
+    description: {
+      fr: "Application mobile de journal intime développée avec React Native. Elle permet d'écrire, organiser et consulter ses notes personnelles dans une interface simple et sécurisée.",
+      en: "A mobile diary app built with React Native. It lets users write, organize, and review personal notes in a clean and secure interface.",
+    },
+    images: [diaryLock],
+    github: "https://github.com/Claudiana27/DiaryApp",
+    demo: "https://github.com/Claudiana27/DiaryApp/raw/refs/heads/master/release/diaryApp.apk",
+    stack: ["React Native", "TypeScript"],
+    deployment: "Mobile: APK (GitHub Release)",
   },
 ];
 
